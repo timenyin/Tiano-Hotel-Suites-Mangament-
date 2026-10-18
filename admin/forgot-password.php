@@ -35,8 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $update = $pdo->prepare("UPDATE admin_users SET reset_code = ?, reset_token = ?, reset_expires = ? WHERE id = ?");
             $update->execute([$code, $token, $expires, $user['id']]);
 
-            $resetUrl = "http://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . "/Tiano-Hotel/admin/reset-password.php?email=" . urlencode($email) . "&token=" . urlencode($token);
+            $isLocal = (isset($_SERVER['HTTP_HOST']) && in_array(parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST), ['localhost', '127.0.0.1']));
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+            $host = $_SERVER['HTTP_HOST'] ?? 'tianohotelandsuites.com';
+            $basePath = $isLocal ? '/Tiano-Hotel' : '';
+            $resetUrl = $protocol . $host . $basePath . "/admin/reset-password.php?email=" . urlencode($email) . "&token=" . urlencode($token);
             @sendAdminPasswordResetEmail($user, $code, $resetUrl);
+
 
             header("Location: reset-password.php?email=" . urlencode($email) . "&msg=" . urlencode("A 6-digit password reset OTP has been sent to your email."));
             exit;

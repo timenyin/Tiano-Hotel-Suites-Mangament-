@@ -22,5 +22,6 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 
 -- Initial Administrator Account (Default Credentials: admin / Admin@Tiano2026)
 INSERT INTO `admin_users` (`id`, `username`, `fullname`, `email`, `password_hash`, `role`, `is_verified`, `status`) VALUES
-(1, 'admin', 'Tiano Hotel Administrator', 'support@tianohotelandsuites.com', '$2y$10$s/erDBSHWFORh/3oaHax3ewdiMZn0LaElF1ks3HbM8ykd0wHC9BIu', 'super_admin', 1, 'active')
-ON DUPLICATE KEY UPDATE `email`=VALUES(`email`), `is_verified`=VALUES(`is_verified`);
+(1, 'admin', 'Tiano Hotel Administrator', 'support@tianohotelandsuites.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'super_admin', 1, 'active')
+ON DUPLICATE KEY UPDATE `email`=VALUES(`email`), `password_hash`=VALUES(`password_hash`), `is_verified`=VALUES(`is_verified`);
+

@@ -27,13 +27,14 @@ if (file_exists($autoloader)) {
 
 // ─── SMTP Server Configuration ─────────────────────────────────────────────
 if (!defined('TIANO_SMTP_HOST')) define('TIANO_SMTP_HOST', 'mail.weburea.com');
-if (!defined('TIANO_SMTP_PORT')) define('TIANO_SMTP_PORT', 25); // Port 25 STARTTLS (super-fast 0.14s relay)
-if (!defined('TIANO_SMTP_SECURE')) define('TIANO_SMTP_SECURE', PHPMailer::ENCRYPTION_STARTTLS);
+if (!defined('TIANO_SMTP_PORT')) define('TIANO_SMTP_PORT', 465); // Port 465 SMTPS (universal standard SSL)
+if (!defined('TIANO_SMTP_SECURE')) define('TIANO_SMTP_SECURE', PHPMailer::ENCRYPTION_SMTPS);
 if (!defined('TIANO_SMTP_USER')) define('TIANO_SMTP_USER', 'webureabooking@weburea.com');
 if (!defined('TIANO_SMTP_PASS')) define('TIANO_SMTP_PASS', 'Weburea_@');
 if (!defined('TIANO_SMTP_FROM_EMAIL')) define('TIANO_SMTP_FROM_EMAIL', 'webureabooking@weburea.com');
 if (!defined('TIANO_SMTP_FROM_NAME')) define('TIANO_SMTP_FROM_NAME', 'Tiano Hotel & Suites');
 if (!defined('TIANO_SMTP_DEBUG')) define('TIANO_SMTP_DEBUG', SMTP::DEBUG_OFF);
+
 
 /**
  * Instantiate and configure an authenticated PHPMailer object.
@@ -60,7 +61,8 @@ function getTianoMailer(int $forcedPort = 0, string $forcedSecure = ''): PHPMail
     $mail->SMTPAutoTLS = true;
     $mail->SMTPDebug  = TIANO_SMTP_DEBUG;
     $mail->CharSet    = 'UTF-8';
-    $mail->Timeout    = 4; // Fast 4s timeout to guarantee instant responsiveness
+    $mail->Timeout    = 2; // Strict 2s timeout to guarantee instant responsiveness
+
 
     // SSL options for smooth operation across local development and live cPanel
     $mail->SMTPOptions = [
@@ -112,18 +114,19 @@ function sendTianoMail(
     string $replyTo = '',
     array $extraOptions = []
 ): array {
-    static $activeWorkingPort = 25;
-    static $activeWorkingSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    static $activeWorkingPort = 465;
+    static $activeWorkingSecure = PHPMailer::ENCRYPTION_SMTPS;
 
     // Resilient port configurations:
-    // Config 1: Port 25 (STARTTLS) - standard fast cPanel SMTP (0.14s)
-    // Config 2: Port 465 (SMTPS / SSL)
-    // Config 3: Port 587 (STARTTLS)
+    // Config 1: Port 465 (SMTPS / SSL) - universal secure relay
+    // Config 2: Port 587 (STARTTLS)
+    // Config 3: Port 25 (STARTTLS)
     $portConfigs = [
-        ['port' => 25,  'secure' => PHPMailer::ENCRYPTION_STARTTLS],
         ['port' => 465, 'secure' => PHPMailer::ENCRYPTION_SMTPS],
         ['port' => 587, 'secure' => PHPMailer::ENCRYPTION_STARTTLS],
+        ['port' => 25,  'secure' => PHPMailer::ENCRYPTION_STARTTLS],
     ];
+
 
     // Prioritize confirmed working port
     if ($activeWorkingPort !== null) {
@@ -789,8 +792,14 @@ function sendDualBookingNotifications(array $booking): array
 
     $results = ['guest' => false, 'admin' => false];
 
-    // Build Email Templates Once
-    $voucherUrl = "http://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . "/Tiano-Hotel/voucher.php?ref=" . urlencode($booking['booking_reference']);
+    // Build Email Templates Once with Environment-Aware Base URL
+    $isLocal = (isset($_SERVER['HTTP_HOST']) && in_array(parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST), ['localhost', '127.0.0.1']));
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'] ?? 'tianohotelandsuites.com';
+    $basePath = $isLocal ? '/Tiano-Hotel' : '';
+    $baseUrl = $protocol . $host . $basePath;
+
+    $voucherUrl = $baseUrl . "/voucher.php?ref=" . urlencode($booking['booking_reference']);
     $guestHtml = buildTicketPassEmailTemplate($booking, $voucherUrl);
     $guestSubject = "Reservation Confirmed: Pass #" . $booking['booking_reference'] . " — Tiano Hotel & Suites";
 
@@ -821,13 +830,12 @@ function sendDualBookingNotifications(array $booking): array
     </div>
     <p style="font-size:13px;color:#64748b;">The guest has been issued their digital boarding pass voucher and can be managed directly on the admin cockpit.</p>
 HTML;
-    $adminUrl = "http://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . "/Tiano-Hotel/admin/bookings.php";
+    $adminUrl = $baseUrl . "/admin/bookings.php";
     $adminHtml = buildTianoEmailTemplate($adminTitle, $adminBody, $adminUrl, 'Open Admin Bookings Desk');
     $adminSubject = "New Reservation Alert: #" . $booking['booking_reference'] . " — " . $booking['guest_name'];
 
-    // Multi-port failover configurations: Port 25 -> Port 465 -> Port 587
+    // Streamlined dual-port failover: Port 465 (SSL) -> Port 587 (TLS)
     $portConfigs = [
-        ['port' => 25,  'secure' => PHPMailer::ENCRYPTION_STARTTLS],
         ['port' => 465, 'secure' => PHPMailer::ENCRYPTION_SMTPS],
         ['port' => 587, 'secure' => PHPMailer::ENCRYPTION_STARTTLS],
     ];
@@ -865,7 +873,7 @@ HTML;
 
             $mail->smtpClose();
             return ['success' => true, 'message' => 'Dispatched dual notifications in single fast session via port ' . $cfg['port'] . '.', 'results' => $results];
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $lastError = $mail->ErrorInfo ?? $e->getMessage();
             error_log("[Dual Mailer Failover] Port {$cfg['port']} failed: {$lastError}. Trying alternate port...");
             if (isset($mail)) {
@@ -873,16 +881,6 @@ HTML;
             }
         }
     }
-
-    // High-Resilience Fallback: If dual persistent session failed, send guest voucher individually via sendTianoMail
-    if (!$results['guest']) {
-        $fallbackRes = sendTianoMail($booking['guest_email'], $booking['guest_name'], $guestSubject, $guestHtml);
-        if (!empty($fallbackRes['success'])) {
-            $results['guest'] = true;
-            return ['success' => true, 'message' => 'Dispatched guest pass via individual failover mailer.', 'results' => $results];
-        }
-    }
-
     return ['success' => false, 'message' => $lastError, 'results' => $results];
 }
 

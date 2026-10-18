@@ -2,12 +2,16 @@
 /**
  * Tiano Hotel & Suites - Admin Login Portal
  */
+ob_start();
+
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/../include/mailer.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
+    if (ob_get_level() > 0) ob_end_clean();
     header("Location: dashboard.php");
+    echo '<script>window.location.href="dashboard.php";</script>';
     exit;
 }
 
@@ -15,57 +19,78 @@ $error = '';
 $success = isset($_GET['msg']) ? trim($_GET['msg']) : '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $identifier = trim($_POST['identifier'] ?? '');
-    $password   = $_POST['password'] ?? '';
-    $csrfToken  = $_POST['csrf_token'] ?? '';
+    try {
+        $identifier = trim($_POST['identifier'] ?? '');
+        $password   = $_POST['password'] ?? '';
+        $csrfToken  = $_POST['csrf_token'] ?? '';
 
-    if (!validateCsrf($csrfToken)) {
-        $error = "Security token expired. Please try submitting again.";
-    } elseif (empty($identifier) || empty($password)) {
-        $error = "Please enter your staff email or username and password.";
-    } else {
-        // Query user by username or email
-        $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = ? OR email = ? LIMIT 1");
-        $stmt->execute([$identifier, $identifier]);
-        $user = $stmt->fetch();
-
-        if ($user && password_verify($password, $user['password_hash'])) {
-            if ($user['status'] !== 'active') {
-                $error = "This staff account is currently inactive. Please contact management.";
-            } elseif ((int)$user['is_verified'] === 0) {
-                // Generate fresh 6-digit code and dispatch verification email
-                $code = (string)random_int(100000, 999999);
-                $expires = date('Y-m-d H:i:s', strtotime('+30 minutes'));
-                
-                $update = $pdo->prepare("UPDATE admin_users SET verification_code = ?, verification_expires = ? WHERE id = ?");
-                $update->execute([$code, $expires, $user['id']]);
-
-                $verifyUrl = "http://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . "/Tiano-Hotel/admin/verify-email.php?email=" . urlencode($user['email']);
-                @sendAdminVerificationEmail($user, $code, $verifyUrl);
-
-                header("Location: verify-email.php?email=" . urlencode($user['email']) . "&msg=" . urlencode("Please verify your email address to complete sign in. A 6-digit code was sent to " . $user['email']));
-                exit;
-            } else {
-                // Success - regenerate session ID and log in
-                session_regenerate_id(true);
-                $_SESSION['admin_id'] = $user['id'];
-                $_SESSION['admin_email'] = $user['email'];
-                $_SESSION['admin_name'] = $user['fullname'];
-                $_SESSION['admin_role'] = $user['role'];
-
-                // Update last login
-                $pdo->prepare("UPDATE admin_users SET last_login = NOW() WHERE id = ?")->execute([$user['id']]);
-
-                // Audit log staff authentication
-                log_activity($pdo, $user['id'], $user['fullname'], 'staff_login', 'auth', $user['id'], "Staff operator {$user['fullname']} ({$user['role']}) successfully authenticated into management portal");
-
-                header("Location: dashboard.php");
-                exit;
-            }
+        if (!validateCsrf($csrfToken)) {
+            $error = "Security token expired. Please try submitting again.";
+        } elseif (empty($identifier) || empty($password)) {
+            $error = "Please enter your staff email or username and password.";
         } else {
-            $error = "Invalid staff credentials. Please check your username/email and password.";
-            log_activity($pdo, 0, $identifier, 'failed_login', 'auth', 0, "Failed login attempt with identifier: {$identifier}");
+            // Query user by username or email
+            $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = ? OR email = ? LIMIT 1");
+            $stmt->execute([$identifier, $identifier]);
+            $user = $stmt->fetch();
+
+            if ($user && password_verify($password, $user['password_hash'])) {
+                if ($user['status'] !== 'active') {
+                    $error = "This staff account is currently inactive. Please contact management.";
+                } elseif ((int)$user['is_verified'] === 0) {
+                    // Generate fresh 6-digit code and dispatch verification email
+                    $code = (string)random_int(100000, 999999);
+                    $expires = date('Y-m-d H:i:s', strtotime('+30 minutes'));
+                    
+                    $update = $pdo->prepare("UPDATE admin_users SET verification_code = ?, verification_expires = ? WHERE id = ?");
+                    $update->execute([$code, $expires, $user['id']]);
+
+                    $isLocal = (isset($_SERVER['HTTP_HOST']) && in_array(parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST), ['localhost', '127.0.0.1']));
+                    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+                    $host = $_SERVER['HTTP_HOST'] ?? 'tianohotelandsuites.com';
+                    $basePath = $isLocal ? '/Tiano-Hotel' : '';
+                    $verifyUrl = $protocol . $host . $basePath . "/admin/verify-email.php?email=" . urlencode($user['email']);
+
+                    try {
+                        sendAdminVerificationEmail($user, $code, $verifyUrl);
+                    } catch (\Throwable $mailErr) {
+                        error_log("[Staff Verification Mailer] " . $mailErr->getMessage());
+                    }
+
+                    $verRedir = "verify-email.php?email=" . urlencode($user['email']) . "&msg=" . urlencode("Please verify your email address to complete sign in. A 6-digit code was sent to " . $user['email']);
+                    if (ob_get_level() > 0) ob_end_clean();
+                    header("Location: " . $verRedir);
+                    echo '<script>window.location.href=' . json_encode($verRedir) . ';</script>';
+                    exit;
+                } else {
+                    // Success - regenerate session ID and log in
+                    session_regenerate_id(true);
+                    $_SESSION['admin_id'] = $user['id'];
+                    $_SESSION['admin_email'] = $user['email'];
+                    $_SESSION['admin_name'] = $user['fullname'];
+                    $_SESSION['admin_role'] = $user['role'];
+
+                    // Update last login
+                    $pdo->prepare("UPDATE admin_users SET last_login = NOW() WHERE id = ?")->execute([$user['id']]);
+
+                    // Audit log staff authentication
+                    log_activity($pdo, $user['id'], $user['fullname'], 'staff_login', 'auth', $user['id'], "Staff operator {$user['fullname']} ({$user['role']}) successfully authenticated into management portal");
+
+                    if (ob_get_level() > 0) ob_end_clean();
+                    header("Location: dashboard.php");
+                    echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=dashboard.php"></head><body>';
+                    echo '<script>window.location.href="dashboard.php";</script>';
+                    echo '<p>Redirecting to dashboard... <a href="dashboard.php">Click here</a></p></body></html>';
+                    exit;
+                }
+            } else {
+                $error = "Invalid staff credentials. Please check your username/email and password.";
+                log_activity($pdo, null, $identifier, 'failed_login', 'auth', null, "Failed login attempt with identifier: {$identifier}");
+            }
         }
+    } catch (\Throwable $e) {
+        error_log("[Admin Login Error] " . $e->getMessage());
+        $error = "An unexpected error occurred during authentication. Please try again.";
     }
 }
 ?>

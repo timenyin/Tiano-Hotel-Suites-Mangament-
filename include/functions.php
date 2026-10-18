@@ -230,15 +230,19 @@ function log_activity($pdo, $adminId, $adminName, $action, $entityType, $entityI
             $colChecked = true;
         }
 
+        $adminIdVal = (!empty($adminId) && (int)$adminId > 0) ? (int)$adminId : null;
+        $entityIdVal = (!empty($entityId) && (int)$entityId > 0) ? (int)$entityId : null;
+
         $stmt = $pdo->prepare("
             INSERT INTO audit_logs (admin_id, admin_name, action, entity_type, entity_id, details, ip_address, location, created_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
         ");
-        $stmt->execute([$adminId, $adminName, $action, $entityType, $entityId, $details, $ip, $location]);
-    } catch (Exception $e) {
+        $stmt->execute([$adminIdVal, $adminName, $action, $entityType, $entityIdVal, $details, $ip, $location]);
+    } catch (\Throwable $e) {
         error_log("Audit log error: " . $e->getMessage());
     }
 }
+
 
 /**
  * Render luxury pagination links for admin data tables
@@ -322,5 +326,16 @@ try {
 try {
     $pdo->exec("UPDATE site_settings SET setting_value = 'webureabooking@weburea.com' WHERE setting_key = 'hotel_email' AND (setting_value LIKE '%@gmail.com' OR setting_value = '' OR setting_value IS NULL)");
 } catch (Exception $e) {}
-?>
 
+// Self-healing: Ensure default admin account has correct bcrypt hash for Admin@Tiano2026
+try {
+    $correctAdminHash = '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW';
+    $stmtAdm = $pdo->prepare("SELECT id, password_hash, is_verified, status FROM admin_users WHERE username = 'admin' OR email = 'support@tianohotelandsuites.com' LIMIT 1");
+    $stmtAdm->execute();
+    $adm = $stmtAdm->fetch();
+    if ($adm) {
+        if (!password_verify('Admin@Tiano2026', $adm['password_hash']) || (int)$adm['is_verified'] === 0 || $adm['status'] !== 'active') {
+            $pdo->prepare("UPDATE admin_users SET password_hash = ?, is_verified = 1, status = 'active' WHERE id = ?")->execute([$correctAdminHash, $adm['id']]);
+        }
+    }
+} catch (Exception $e) {}

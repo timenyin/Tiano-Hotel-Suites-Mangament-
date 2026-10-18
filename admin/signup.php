@@ -57,8 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ");
 
             if ($insert->execute([$fullname, $username, $email, $passwordHash, $role, $code, $token, $expires])) {
-                // Dispatch Verification Email
-                $verifyUrl = "http://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . "/Tiano-Hotel/admin/verify-email.php?email=" . urlencode($email) . "&token=" . urlencode($token);
+                $isLocal = (isset($_SERVER['HTTP_HOST']) && in_array(parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST), ['localhost', '127.0.0.1']));
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+                $host = $_SERVER['HTTP_HOST'] ?? 'tianohotelandsuites.com';
+                $basePath = $isLocal ? '/Tiano-Hotel' : '';
+                $verifyUrl = $protocol . $host . $basePath . "/admin/verify-email.php?email=" . urlencode($email) . "&token=" . urlencode($token);
+
                 $mailResult = sendAdminVerificationEmail([
                     'fullname' => $fullname,
                     'username' => $username,

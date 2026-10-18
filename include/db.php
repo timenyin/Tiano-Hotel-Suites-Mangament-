@@ -17,7 +17,6 @@ try {
     date_default_timezone_set('Africa/Lagos');
     $pdo->exec("SET time_zone = '+01:00'");
 } catch (\PDOException $e) {
-    // If the database does not exist yet during migration setup, provide a clear diagnostic
+    error_log("Database connection failed: " . $e->getMessage());
     die("Database connection failed: " . $e->getMessage());
 }
-?>

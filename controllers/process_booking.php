@@ -3,10 +3,18 @@
  * Tiano Hotel and Suites - Booking Reservation Processor
  * Enforces strictly "Pay on Arrival" physical check-in policy.
  */
+ob_start();
+
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
+}
+
 require_once __DIR__ . '/../include/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    if (ob_get_level() > 0) ob_end_clean();
     header("Location: ../index.php");
+    echo '<script>window.location.href="../index.php";</script>';
     exit;
 }
 
@@ -20,17 +28,15 @@ $adults           = isset($_POST['adults']) ? max(1, (int)$_POST['adults']) : 1;
 $children         = isset($_POST['children']) ? max(0, (int)$_POST['children']) : 0;
 $special_requests = isset($_POST['special_requests']) ? trim($_POST['special_requests']) : '';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 if (!$category_id || empty($check_in_date) || empty($check_out_date) || empty($guest_name) || empty($guest_email) || empty($guest_phone)) {
     $_SESSION['booking_toast_error'] = "Please fill in all required booking information (Guest Name, Email, Phone, and Dates).";
     $redir = "../booking.php?error=" . urlencode("Please fill in all required booking information.");
     if ($category_id > 0) {
         $redir .= "&category_id=" . $category_id;
     }
+    if (ob_get_level() > 0) ob_end_clean();
     header("Location: " . $redir);
+    echo '<script>window.location.href=' . json_encode($redir) . ';</script>';
     exit;
 }
 
@@ -41,7 +47,10 @@ $category = $stmt->fetch();
 
 if (!$category) {
     $_SESSION['booking_toast_error'] = "Selected room category was not found or is currently unavailable.";
-    header("Location: ../booking.php?error=" . urlencode("Selected room category is unavailable."));
+    $redir = "../booking.php?error=" . urlencode("Selected room category is unavailable.");
+    if (ob_get_level() > 0) ob_end_clean();
+    header("Location: " . $redir);
+    echo '<script>window.location.href=' . json_encode($redir) . ';</script>';
     exit;
 }
 
@@ -116,41 +125,54 @@ try {
                 ON DUPLICATE KEY UPDATE status = 'active'
             ");
             $stmtSub->execute([$guest_email]);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             error_log("[Newsletter Auto-Sync] Failed for {$guest_email}: " . $e->getMessage());
         }
     }
 
     // Trigger Dual Notifications (Guest Pass Email & Hotel Reception Alert)
-    require_once __DIR__ . '/../include/mailer.php';
-    $bookingData = [
-        'booking_reference' => $booking_reference,
-        'guest_name'        => $guest_name,
-        'guest_email'       => $guest_email,
-        'guest_phone'       => $guest_phone,
-        'category_name'     => $category['name'],
-        'check_in_date'     => $check_in_date,
-        'check_out_date'    => $check_out_date,
-        'nights'            => $nights,
-        'nightly_rate'      => $nightly_rate,
-        'total_amount'      => $total_amount,
-        'caution_deposit'   => $caution_deposit,
-        'special_requests'  => $special_requests,
-    ];
-    
-    // Fast dual notifications dispatch in single persistent SMTP connection (Guest Pass + Admin Alert)
-    $emailRes = sendDualBookingNotifications($bookingData);
-    if (!empty($emailRes) && !$emailRes['success']) {
-        error_log("[Booking Mailer] Dual dispatch warning for {$booking_reference}: " . ($emailRes['message'] ?? 'Unknown'));
+    // Wrapped safely so that mailer delays or SMTP connection issues never abort or block user voucher display
+    try {
+        require_once __DIR__ . '/../include/mailer.php';
+        $bookingData = [
+            'booking_reference' => $booking_reference,
+            'guest_name'        => $guest_name,
+            'guest_email'       => $guest_email,
+            'guest_phone'       => $guest_phone,
+            'category_name'     => $category['name'],
+            'check_in_date'     => $check_in_date,
+            'check_out_date'    => $check_out_date,
+            'nights'            => $nights,
+            'nightly_rate'      => $nightly_rate,
+            'total_amount'      => $total_amount,
+            'caution_deposit'   => $caution_deposit,
+            'special_requests'  => $special_requests,
+        ];
+        
+        $emailRes = sendDualBookingNotifications($bookingData);
+        if (!empty($emailRes) && !$emailRes['success']) {
+            error_log("[Booking Mailer] Dual dispatch warning for {$booking_reference}: " . ($emailRes['message'] ?? 'Unknown'));
+        }
+    } catch (\Throwable $mailErr) {
+        error_log("[Booking Mailer Exception] Failed for {$booking_reference}: " . $mailErr->getMessage());
     }
 
-    // Redirect to digital printable voucher
-    header("Location: ../voucher.php?ref=" . urlencode($booking_reference));
+    // Clean output buffer to ensure pristine HTTP 302 Location redirect
+    $voucherUrl = "../voucher.php?ref=" . urlencode($booking_reference);
+    if (ob_get_level() > 0) ob_end_clean();
+    header("Location: " . $voucherUrl);
+    echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($voucherUrl) . '"></head><body>';
+    echo '<script>window.location.href=' . json_encode($voucherUrl) . ';</script>';
+    echo '<p>Redirecting to your booking voucher... <a href="' . htmlspecialchars($voucherUrl) . '">Click here</a></p>';
+    echo '</body></html>';
     exit;
 
-} catch (Exception $e) {
+} catch (\Throwable $e) {
     error_log("Reservation booking error: " . $e->getMessage());
     $_SESSION['booking_toast_error'] = "A temporary database error occurred while processing your booking. Please try again or call our reception desk.";
-    header("Location: ../booking.php?error=" . urlencode("A temporary error occurred. Please try again."));
+    $errorUrl = "../booking.php?error=" . urlencode("A temporary error occurred. Please try again.");
+    if (ob_get_level() > 0) ob_end_clean();
+    header("Location: " . $errorUrl);
+    echo '<script>window.location.href=' . json_encode($errorUrl) . ';</script>';
     exit;
 }

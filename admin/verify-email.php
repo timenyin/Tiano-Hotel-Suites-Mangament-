@@ -85,8 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resend_code'])) {
             $pdo->prepare("UPDATE admin_users SET verification_code = ?, verification_token = ?, verification_expires = ? WHERE id = ?")
                 ->execute([$code, $token, $expires, $user['id']]);
 
-            $verifyUrl = "http://" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . "/Tiano-Hotel/admin/verify-email.php?email=" . urlencode($email) . "&token=" . urlencode($token);
+            $isLocal = (isset($_SERVER['HTTP_HOST']) && in_array(parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST), ['localhost', '127.0.0.1']));
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+            $host = $_SERVER['HTTP_HOST'] ?? 'tianohotelandsuites.com';
+            $basePath = $isLocal ? '/Tiano-Hotel' : '';
+            $verifyUrl = $protocol . $host . $basePath . "/admin/verify-email.php?email=" . urlencode($email) . "&token=" . urlencode($token);
             @sendAdminVerificationEmail($user, $code, $verifyUrl);
+
 
             $success = "A fresh 6-digit verification code has been dispatched to " . htmlspecialchars($email);
         } else {

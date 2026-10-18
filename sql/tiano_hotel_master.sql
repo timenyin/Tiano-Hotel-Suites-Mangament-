@@ -305,9 +305,10 @@ CREATE TABLE `admin_users` (
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `admin_users` (`id`, `username`, `fullname`, `email`, `password_hash`, `role`, `status`) VALUES
-(1, 'admin', 'Tiano Hotel Administrator', 'admin@tianohotel.com', '$2y$10$s/erDBSHWFORh/3oaHax3ewdiMZn0LaElF1ks3HbM8ykd0wHC9BIu', 'super_admin', 'active'),
-(2, 'frontdesk', 'Front Desk Reception', 'frontdesk@tianohotel.com', '$2y$10$s/erDBSHWFORh/3oaHax3ewdiMZn0LaElF1ks3HbM8ykd0wHC9BIu', 'receptionist', 'active');
+INSERT INTO `admin_users` (`id`, `username`, `fullname`, `email`, `password_hash`, `role`, `is_verified`, `status`) VALUES
+(1, 'admin', 'Tiano Hotel Administrator', 'support@tianohotelandsuites.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'super_admin', 1, 'active'),
+(2, 'frontdesk', 'Front Desk Reception', 'frontdesk@tianohotel.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'receptionist', 1, 'active');
+
 
 -- ---------------------------------------------------------------------
 -- 12. Table: site_settings
