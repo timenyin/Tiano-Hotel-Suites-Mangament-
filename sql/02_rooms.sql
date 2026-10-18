@@ -13,20 +13,47 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   CONSTRAINT `fk_rooms_category` FOREIGN KEY (`category_id`) REFERENCES `room_categories` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Initial Physical Rooms Seed Data across Tiano Hotel wings
+-- Official Physical Rooms Seed Data across Tiano Hotel wings (Rooms 2 through 34)
 INSERT INTO `rooms` (`id`, `category_id`, `room_number`, `floor_number`, `cleanliness_status`, `occupancy_status`, `notes`) VALUES
-(1, 1, '101', 1, 'clean', 'vacant', 'Coral Wing - Ground floor garden view'),
-(2, 1, '102', 1, 'clean', 'vacant', 'Coral Wing - Near quiet courtyard'),
-(3, 1, '103', 1, 'clean', 'vacant', 'Coral Wing - Easy lobby access'),
-(4, 1, '104', 1, 'inspected', 'vacant', 'Coral Wing - Double checked by housekeeping'),
-(5, 2, '201', 2, 'clean', 'vacant', 'Gold Wing - 2nd floor city view'),
-(6, 2, '202', 2, 'clean', 'vacant', 'Gold Wing - Quiet corner unit'),
-(7, 2, '203', 2, 'clean', 'vacant', 'Gold Wing - Balcony facing Marina Road'),
-(8, 2, '204', 2, 'inspected', 'vacant', 'Gold Wing - Executive layout'),
-(9, 3, '301', 3, 'clean', 'vacant', 'Diamond Wing - 3rd floor panoramic vista'),
-(10, 3, '302', 3, 'clean', 'vacant', 'Diamond Wing - Luxury soaking tub equipped'),
-(11, 3, '303', 3, 'inspected', 'vacant', 'Diamond Wing - Premium corner room'),
-(12, 4, '401', 4, 'clean', 'vacant', 'Executive Wing - 4th floor quiet suite'),
-(13, 4, '402', 4, 'inspected', 'vacant', 'Executive Wing - Separate lounge parlor'),
-(14, 5, 'PH-01', 5, 'inspected', 'vacant', 'Penthouse Level - Presidential Suite VIP Wing')
-ON DUPLICATE KEY UPDATE `room_number`=VALUES(`room_number`), `cleanliness_status`=VALUES(`cleanliness_status`);
+-- Ground Floor (Rooms 2 - 10)
+(1,  2, '2',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Garden & Courtyard Access)'),
+(2,  2, '3',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Quiet Courtyard Side)'),
+(3,  3, '4',  0, 'clean', 'vacant', 'Ground Floor - Diamond Room (Spacious Luxury Suite)'),
+(4,  3, '5',  0, 'clean', 'vacant', 'Ground Floor - Diamond Room (Executive Corner)'),
+(5,  6, '6',  0, 'clean', 'vacant', 'Ground Floor - Silver Room (Near Reception & Lobby)'),
+(6,  2, '7',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Easy Access Wing)'),
+(7,  6, '8',  0, 'clean', 'vacant', 'Ground Floor - Silver Room (Quiet Inner Corridor)'),
+(8,  2, '9',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Poolside Access Corridor)'),
+(9,  6, '10', 0, 'clean', 'vacant', 'Ground Floor - Silver Room (West Wing Comfort)'),
+
+-- First Floor (Rooms 11 - 22)
+(10, 4, '11', 1, 'clean', 'vacant', 'First Floor - Premium Room (Executive View Wing)'),
+(11, 6, '12', 1, 'clean', 'vacant', 'First Floor - Silver Room (Convenient Stairwell Access)'),
+(12, 3, '13', 1, 'clean', 'vacant', 'First Floor - Diamond Room (Panoramic Balcony View)'),
+(13, 1, '14', 1, 'clean', 'vacant', 'First Floor - Coral Room (Plush Modern Sanctuary)'),
+(14, 6, '15', 1, 'clean', 'vacant', 'First Floor - Silver Room (Mid-Corridor Silence)'),
+(15, 6, '16', 1, 'clean', 'vacant', 'First Floor - Silver Room (East Facing Morning Sun)'),
+(16, 6, '17', 1, 'clean', 'vacant', 'First Floor - Silver Room (Central Living Comfort)'),
+(17, 4, '18', 1, 'clean', 'vacant', 'First Floor - Premium Room (Expansive Lounge Layout)'),
+(18, 2, '19', 1, 'clean', 'vacant', 'First Floor - Gold Room (Spacious King Comfort)'),
+(19, 6, '20', 1, 'clean', 'vacant', 'First Floor - Silver Room (Quiet Residential Corridor)'),
+(20, 6, '21', 1, 'clean', 'vacant', 'First Floor - Silver Room (Modern Executive Trim)'),
+(21, 2, '22', 1, 'clean', 'vacant', 'First Floor - Gold Room (Marina Road Facing Vista)'),
+
+-- Second Floor (Rooms 23 - 34)
+(22, 4, '23', 2, 'clean', 'vacant', 'Second Floor - Premium Room (Elevated Executive Suite)'),
+(23, 2, '24', 2, 'clean', 'vacant', 'Second Floor - Gold Room (High Vista Corner Unit)'),
+(24, 3, '25', 2, 'clean', 'vacant', 'Second Floor - Diamond Room (Luxury Soaking Tub)'),
+(25, 1, '26', 2, 'clean', 'vacant', 'Second Floor - Coral Room (Top Floor Quiet Sanctuary)'),
+(26, 3, '27', 2, 'clean', 'vacant', 'Second Floor - Diamond Room (Panoramic Skyline View)'),
+(27, 5, '28', 2, 'inspected', 'vacant', 'Second Floor - Presidential Suite (Aristocratic Penthouse Wing)'),
+(28, 2, '29', 2, 'clean', 'vacant', 'Second Floor - Gold Room (Top Floor City Views)'),
+(29, 6, '30', 2, 'clean', 'vacant', 'Second Floor - Silver Room (Top Floor Executive Unit)'),
+(30, 2, '31', 2, 'clean', 'vacant', 'Second Floor - Gold Room (Quiet Retreat)'),
+(31, 6, '32', 2, 'clean', 'vacant', 'Second Floor - Silver Room (Upper Deck Sanctuary)'),
+(32, 6, '33', 2, 'clean', 'vacant', 'Second Floor - Silver Room (Elevated Quiet Corridor)'),
+(33, 3, '34', 2, 'clean', 'vacant', 'Second Floor - Diamond Room (VIP Upper Corner Suite)')
+ON DUPLICATE KEY UPDATE 
+  `category_id`=VALUES(`category_id`),
+  `floor_number`=VALUES(`floor_number`),
+  `notes`=VALUES(`notes`);

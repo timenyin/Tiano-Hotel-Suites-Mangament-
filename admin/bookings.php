@@ -489,7 +489,7 @@ $allRooms = $pdo->query("SELECT id, category_id, room_number, cleanliness_status
                                     <?php if (!empty($b['room_number'])): ?>
                                         <div class="room-allocated-badge" style="background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46;" title="Physical Room Allocated">
                                             <i class="bx bx-door-open" style="color:#059669; font-size:15px;"></i>
-                                            <span>Room <strong><?php echo htmlspecialchars($b['room_number']); ?></strong> &bull; Fl. <?php echo htmlspecialchars($b['floor_number'] ?? '1'); ?></span>
+                                            <span>Room <strong><?php echo htmlspecialchars($b['room_number']); ?></strong> &bull; <?php echo ((int)($b['floor_number'] ?? 1) === 0 ? 'Ground Fl.' : 'Fl. ' . htmlspecialchars($b['floor_number'] ?? '1')); ?></span>
                                         </div>
                                     <?php else: ?>
                                         <div class="room-unallocated-badge" style="background:#fffbeb; border:1px solid #fde68a; color:#92400e;" title="No Physical Room Assigned Yet">

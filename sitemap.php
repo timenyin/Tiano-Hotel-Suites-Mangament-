@@ -16,6 +16,7 @@ $pages = [
     ['loc' => '/booking.php', 'priority' => '0.95', 'changefreq' => 'daily'],
     ['loc' => '/room.php', 'priority' => '0.9', 'changefreq' => 'weekly'],
     ['loc' => '/coral-room.php', 'priority' => '0.85', 'changefreq' => 'weekly'],
+    ['loc' => '/silver-room.php', 'priority' => '0.85', 'changefreq' => 'weekly'],
     ['loc' => '/gold-room.php', 'priority' => '0.85', 'changefreq' => 'weekly'],
     ['loc' => '/diamond-room.php', 'priority' => '0.85', 'changefreq' => 'weekly'],
     ['loc' => '/premium-room.php', 'priority' => '0.85', 'changefreq' => 'weekly'],

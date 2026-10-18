@@ -990,7 +990,7 @@ function sendPromotionalNewsletterBroadcast(array $subscribers, string $subject,
                     <tr>
                         <td style="background-color:#f8fafc;padding:26px 36px;border-top:1px solid #e2e8f0;text-align:center;font-size:12px;color:#64748b;">
                             <p style="margin:0 0 6px 0;font-weight:700;color:#0f172a;">Tiano Hotel &amp; Suites</p>
-                            <p style="margin:0 0 10px 0;line-height:1.5;">44 Marina Road, Eket, Akwa Ibom State, Nigeria<br>Phone: +234 810 097 4728 &bull; Email: reservations@tianohotel.com</p>
+                            <p style="margin:0 0 10px 0;line-height:1.5;">44 Marina Road, Eket, Akwa Ibom State, Nigeria<br>Phone: +234 814 473 4612 &bull; Email: tianohotel@gmail.com</p>
                             <p style="margin:0;font-size:11px;color:#94a3b8;border-top:1px dashed #cbd5e1;padding-top:12px;line-height:1.6;">
                                 You are receiving this because you booked a room or subscribed to offers at Tiano Hotel &amp; Suites.<br>
                                 No longer wish to receive special offers? <a href="{{UNSUBSCRIBE_URL}}" style="color:#E73539;font-weight:600;text-decoration:underline;">Click here to Unsubscribe</a>.<br>

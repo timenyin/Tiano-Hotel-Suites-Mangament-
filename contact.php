@@ -13,7 +13,7 @@ require_once __DIR__ . '/include/topbar.php';
 require_once __DIR__ . '/include/navbar.php';
 
 $hotel_phone   = get_setting($pdo, 'hotel_phone', '+234 814 473 4612');
-$hotel_email   = get_setting($pdo, 'hotel_email', 'webureabooking@weburea.com');
+$hotel_email   = get_setting($pdo, 'hotel_email', 'tianohotel@gmail.com');
 $hotel_address = get_setting($pdo, 'hotel_address', '44 Marina Road, Eket, Akwa Ibom State, Nigeria');
 $clean_phone   = preg_replace('/[^0-9+]/', '', $hotel_phone);
 ?>

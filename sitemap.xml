@@ -36,6 +36,12 @@
         <priority>0.85</priority>
     </url>
     <url>
+        <loc>https://www.tianohotel.com/silver-room.php</loc>
+        <lastmod>2026-10-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
         <loc>https://www.tianohotel.com/gold-room.php</loc>
         <lastmod>2026-10-18</lastmod>
         <changefreq>weekly</changefreq>

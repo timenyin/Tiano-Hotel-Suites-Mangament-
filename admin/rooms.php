@@ -667,7 +667,15 @@ $rooms = $stmtRooms->fetchAll();
                                             <small class="text-muted"><?php echo htmlspecialchars($r['bed_type']); ?></small>
                                         </td>
                                         <td>
-                                            <span class="badge bg-light text-dark border">Floor <?php echo $r['floor_number']; ?></span>
+                                            <span class="badge bg-light text-dark border">
+                                                <?php 
+                                                $fl = (int)$r['floor_number'];
+                                                if ($fl === 0) echo 'Ground Floor';
+                                                elseif ($fl === 1) echo '1st Floor';
+                                                elseif ($fl === 2) echo '2nd Floor';
+                                                else echo 'Floor ' . $fl;
+                                                ?>
+                                            </span>
                                         </td>
                                         <td class="fw-bold text-dark">
                                             &#8358;<?php echo number_format($r['price_per_night']); ?>
@@ -767,8 +775,8 @@ $rooms = $stmtRooms->fetchAll();
                             <input type="text" name="room_number" class="form-control" placeholder="e.g. 106, 204" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Floor Level</label>
-                            <input type="number" name="floor_number" class="form-control" value="1" min="1" max="10">
+                            <label class="form-label">Floor Level (0 = Ground, 1 = 1st Fl, etc.)</label>
+                            <input type="number" name="floor_number" class="form-control" value="1" min="0" max="10">
                         </div>
                         <div class="col-12">
                             <label class="form-label">Room Category / Wing *</label>

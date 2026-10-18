@@ -36,11 +36,12 @@ CREATE TABLE `room_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `room_categories` (`id`, `name`, `slug`, `tagline`, `price_per_night`, `capacity_adults`, `capacity_children`, `bed_type`, `room_size`, `description`, `amenities`, `featured_image`, `status`) VALUES
-(1, 'Coral Room', 'coral-room', 'Modern Comfort for Solo Guests & Business Executives', 35000.00, 2, 1, 'Queen Bed', '28 sqm', 'Designed with contemporary elegance, the Coral Room provides the perfect sanctuary for business travelers and individuals visiting Eket. Features plush bedding, a dedicated ergonomic workspace, fast Wi-Fi, and 24/7 room service.', 'Free High-Speed Wi-Fi, 43" Smart TV with DSTV, Individual Climate Control, Complimentary Gourmet Breakfast, Mini Refrigerator, En-Suite Walk-In Shower, Work Desk, 24/7 Room Service', 'assets/img/room/room-img1.jpg', 'active'),
-(2, 'Gold Room', 'gold-room', 'Spacious Haven with Elevated Amenities & City Views', 48000.00, 2, 1, 'King Bed', '35 sqm', 'The Gold Room blends spacious comfort with tasteful decor. Ideal for couples or extended corporate stays, featuring premium luxury bedding, an expansive lounge chair, and full access to recreational amenities.', 'High-Speed Fiber Wi-Fi, 50" Smart TV with DSTV, Whisper-Quiet Air Conditioning, Daily Gourmet Breakfast, Coffee & Tea Station, Executive Lounge Chair, Rain Shower, Dedicated Concierge Support', 'assets/img/room/room-img2.jpg', 'active'),
-(3, 'Diamond Room', 'diamond-room', 'Opulent Sophistication with Expansive Living Comfort', 65000.00, 2, 2, 'California King Bed', '45 sqm', 'Step into refined luxury with the Diamond Room. Boasting premium hardwood furnishings, a deep-soaking bathtub, floor-to-ceiling windows, and generous space to unwind in absolute privacy.', 'High-Speed Fiber Wi-Fi, 55" 4K Smart TV, Climate Control, Deep Soaking Bathtub & Rain Shower, Complimentary Gourmet Breakfast, Stocked Refreshment Bar, Plush Bathrobes & Slippers, In-Room Safe', 'assets/img/room/room-img3.jpg', 'active'),
-(4, 'Premium Room', 'premium-room', 'The Executive Standard for Distinguished Guests', 85000.00, 3, 2, 'Super King Bed', '55 sqm', 'The Premium Room is engineered for guests who demand unparalleled comfort and distinction. Featuring a private sitting area, dedicated workstation, panoramic views, and priority concierge services.', 'High-Speed Fiber Wi-Fi, 65" 4K Smart TV, Separate Sitting Lounge, Luxury En-Suite Bathroom, Gourmet Breakfast for Two, Welcome Fruit Basket, 24/7 Priority Concierge, Secured Parking with Escort Service', 'assets/img/room/room-img4.jpg', 'active'),
-(5, 'Presidential Suite', 'presidentalsuite', 'The Pinnacle of Aristocratic Luxury & Grandeur', 150000.00, 4, 2, 'Imperial King Bed', '90 sqm', 'The crown jewel of Tiano Hotel and Suites. Designed for VIP dignitaries, corporate heads, and special celebrations. Includes an expansive private master bedroom, opulent living room, dining area, private butler service, and unrivaled security privacy.', 'Ultra-Fast Dedicated Wi-Fi, 75" Master 4K TV, Master Suite with Jacuzzi & Steam Shower, Private Living Room & Dining Area, Dedicated Personal Butler, Full Gourmet Breakfast Banquet, VIP Security & Chauffeur Services', 'assets/img/room/room-img5.jpg', 'active');
+(1, 'Coral Room', 'coral-room', 'Modern Comfort for Solo Guests & Business Executives', 35000.00, 2, 1, 'Queen Bed', '28 sqm', 'Designed with contemporary elegance, the Coral Room provides the perfect sanctuary for business travelers and individuals visiting Eket. Features plush bedding, a dedicated ergonomic workspace, fast Wi-Fi, and 24/7 room service.', 'Free High-Speed Wi-Fi, 43" Smart TV with DSTV, Individual Climate Control, Complimentary Gourmet Breakfast, Mini Refrigerator, En-Suite Walk-In Shower, Work Desk, 24/7 Room Service', 'assets/img/room/room-img30.png', 'active'),
+(2, 'Gold Room', 'gold-room', 'Spacious Haven with Elevated Amenities & City Views', 50000.00, 2, 1, 'King Bed', '35 sqm', 'The Gold Room blends spacious comfort with tasteful decor. Ideal for couples or extended corporate stays, featuring premium luxury bedding, an expansive lounge chair, and full access to recreational amenities.', 'High-Speed Fiber Wi-Fi, 50" Smart TV with DSTV, Whisper-Quiet Air Conditioning, Daily Gourmet Breakfast, Coffee & Tea Station, Executive Lounge Chair, Rain Shower, Dedicated Concierge Support', 'assets/img/room/room-img34.png', 'active'),
+(3, 'Diamond Room', 'diamond-room', 'Opulent Sophistication with Expansive Living Comfort', 60000.00, 2, 2, 'California King Bed', '45 sqm', 'Step into refined luxury with the Diamond Room. Boasting premium hardwood furnishings, a deep-soaking bathtub, floor-to-ceiling windows, and generous space to unwind in absolute privacy.', 'High-Speed Fiber Wi-Fi, 55" 4K Smart TV, Climate Control, Deep Soaking Bathtub & Rain Shower, Complimentary Gourmet Breakfast, Stocked Refreshment Bar, Plush Bathrobes & Slippers, In-Room Safe', 'assets/img/room/room-img31.png', 'active'),
+(4, 'Premium Room', 'premium-room', 'The Executive Standard for Distinguished Guests', 70000.00, 3, 2, 'Super King Bed', '55 sqm', 'The Premium Room is engineered for guests who demand unparalleled comfort and distinction. Featuring a private sitting area, dedicated workstation, panoramic views, and priority concierge services.', 'High-Speed Fiber Wi-Fi, 65" 4K Smart TV, Separate Sitting Lounge, Luxury En-Suite Bathroom, Gourmet Breakfast for Two, Welcome Fruit Basket, 24/7 Priority Concierge, Secured Parking with Escort Service', 'assets/img/room/room-img32.png', 'active'),
+(5, 'Presidential Suite', 'presidentalsuite', 'The Pinnacle of Aristocratic Luxury & Grandeur', 150000.00, 4, 2, 'Imperial King Bed', '90 sqm', 'The crown jewel of Tiano Hotel and Suites. Designed for VIP dignitaries, corporate heads, and special celebrations. Includes an expansive private master bedroom, opulent living room, dining area, private butler service, and unrivaled security privacy.', 'Ultra-Fast Dedicated Wi-Fi, 75" Master 4K TV, Master Suite with Jacuzzi & Steam Shower, Private Living Room & Dining Area, Dedicated Personal Butler, Full Gourmet Breakfast Banquet, VIP Security & Chauffeur Services', 'assets/img/room/room-img33.png', 'active'),
+(6, 'Silver Room', 'silver-room', 'Essential Elegance & Modern Convenience', 45000.00, 2, 1, 'Queen Bed', '30 sqm', 'The Silver Room combines understated luxury with modern essentials. Ideal for corporate professionals and travelers seeking comfort, high-speed fiber internet, pristine air conditioning, and convenient floor access.', 'Free High-Speed Wi-Fi, 43" Smart TV with DSTV, Individual Climate Control, Complimentary Gourmet Breakfast, En-Suite Walk-In Shower, Work Desk, 24/7 Room Service', 'assets/img/room/room-img10.png', 'active');
 
 -- ---------------------------------------------------------------------
 -- 2. Table: rooms
@@ -60,20 +61,44 @@ CREATE TABLE `rooms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `rooms` (`id`, `category_id`, `room_number`, `floor_number`, `cleanliness_status`, `occupancy_status`, `notes`) VALUES
-(1, 1, '101', 1, 'clean', 'vacant', 'Coral Wing - Ground floor garden view'),
-(2, 1, '102', 1, 'clean', 'vacant', 'Coral Wing - Near quiet courtyard'),
-(3, 1, '103', 1, 'clean', 'vacant', 'Coral Wing - Easy lobby access'),
-(4, 1, '104', 1, 'inspected', 'vacant', 'Coral Wing - Double checked by housekeeping'),
-(5, 2, '201', 2, 'clean', 'vacant', 'Gold Wing - 2nd floor city view'),
-(6, 2, '202', 2, 'clean', 'vacant', 'Gold Wing - Quiet corner unit'),
-(7, 2, '203', 2, 'clean', 'vacant', 'Gold Wing - Balcony facing Marina Road'),
-(8, 2, '204', 2, 'inspected', 'vacant', 'Gold Wing - Executive layout'),
-(9, 3, '301', 3, 'clean', 'vacant', 'Diamond Wing - 3rd floor panoramic vista'),
-(10, 3, '302', 3, 'clean', 'vacant', 'Diamond Wing - Luxury soaking tub equipped'),
-(11, 3, '303', 3, 'inspected', 'vacant', 'Diamond Wing - Premium corner room'),
-(12, 4, '401', 4, 'clean', 'vacant', 'Executive Wing - 4th floor quiet suite'),
-(13, 4, '402', 4, 'inspected', 'vacant', 'Executive Wing - Separate lounge parlor'),
-(14, 5, 'PH-01', 5, 'inspected', 'vacant', 'Penthouse Level - Presidential Suite VIP Wing');
+-- Ground Floor (Rooms 2 - 10)
+(1,  2, '2',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Garden & Courtyard Access)'),
+(2,  2, '3',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Quiet Courtyard Side)'),
+(3,  3, '4',  0, 'clean', 'vacant', 'Ground Floor - Diamond Room (Spacious Luxury Suite)'),
+(4,  3, '5',  0, 'clean', 'vacant', 'Ground Floor - Diamond Room (Executive Corner)'),
+(5,  6, '6',  0, 'clean', 'vacant', 'Ground Floor - Silver Room (Near Reception & Lobby)'),
+(6,  2, '7',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Easy Access Wing)'),
+(7,  6, '8',  0, 'clean', 'vacant', 'Ground Floor - Silver Room (Quiet Inner Corridor)'),
+(8,  2, '9',  0, 'clean', 'vacant', 'Ground Floor - Gold Room (Poolside Access Corridor)'),
+(9,  6, '10', 0, 'clean', 'vacant', 'Ground Floor - Silver Room (West Wing Comfort)'),
+
+-- First Floor (Rooms 11 - 22)
+(10, 4, '11', 1, 'clean', 'vacant', 'First Floor - Premium Room (Executive View Wing)'),
+(11, 6, '12', 1, 'clean', 'vacant', 'First Floor - Silver Room (Convenient Stairwell Access)'),
+(12, 3, '13', 1, 'clean', 'vacant', 'First Floor - Diamond Room (Panoramic Balcony View)'),
+(13, 1, '14', 1, 'clean', 'vacant', 'First Floor - Coral Room (Plush Modern Sanctuary)'),
+(14, 6, '15', 1, 'clean', 'vacant', 'First Floor - Silver Room (Mid-Corridor Silence)'),
+(15, 6, '16', 1, 'clean', 'vacant', 'First Floor - Silver Room (East Facing Morning Sun)'),
+(16, 6, '17', 1, 'clean', 'vacant', 'First Floor - Silver Room (Central Living Comfort)'),
+(17, 4, '18', 1, 'clean', 'vacant', 'First Floor - Premium Room (Expansive Lounge Layout)'),
+(18, 2, '19', 1, 'clean', 'vacant', 'First Floor - Gold Room (Spacious King Comfort)'),
+(19, 6, '20', 1, 'clean', 'vacant', 'First Floor - Silver Room (Quiet Residential Corridor)'),
+(20, 6, '21', 1, 'clean', 'vacant', 'First Floor - Silver Room (Modern Executive Trim)'),
+(21, 2, '22', 1, 'clean', 'vacant', 'First Floor - Gold Room (Marina Road Facing Vista)'),
+
+-- Second Floor (Rooms 23 - 34)
+(22, 4, '23', 2, 'clean', 'vacant', 'Second Floor - Premium Room (Elevated Executive Suite)'),
+(23, 2, '24', 2, 'clean', 'vacant', 'Second Floor - Gold Room (High Vista Corner Unit)'),
+(24, 3, '25', 2, 'clean', 'vacant', 'Second Floor - Diamond Room (Luxury Soaking Tub)'),
+(25, 1, '26', 2, 'clean', 'vacant', 'Second Floor - Coral Room (Top Floor Quiet Sanctuary)'),
+(26, 3, '27', 2, 'clean', 'vacant', 'Second Floor - Diamond Room (Panoramic Skyline View)'),
+(27, 5, '28', 2, 'inspected', 'vacant', 'Second Floor - Presidential Suite (Aristocratic Penthouse Wing)'),
+(28, 2, '29', 2, 'clean', 'vacant', 'Second Floor - Gold Room (Top Floor City Views)'),
+(29, 6, '30', 2, 'clean', 'vacant', 'Second Floor - Silver Room (Top Floor Executive Unit)'),
+(30, 2, '31', 2, 'clean', 'vacant', 'Second Floor - Gold Room (Quiet Retreat)'),
+(31, 6, '32', 2, 'clean', 'vacant', 'Second Floor - Silver Room (Upper Deck Sanctuary)'),
+(32, 6, '33', 2, 'clean', 'vacant', 'Second Floor - Silver Room (Elevated Quiet Corridor)'),
+(33, 3, '34', 2, 'clean', 'vacant', 'Second Floor - Diamond Room (VIP Upper Corner Suite)');
 
 -- ---------------------------------------------------------------------
 -- 3. Table: bookings

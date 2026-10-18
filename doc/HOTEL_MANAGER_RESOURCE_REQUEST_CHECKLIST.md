@@ -1,150 +1,84 @@
-# Tiano Hotel & Suites — Executive Resource & Information Request Checklist
+# Tiano Hotel & Suites — Executive Resource & Information Checklist (Verified)
 
 **Document Reference:** `DOC-THS-MGR-REQ-2026-V1`  
-**Target Recipient:** Hotel General Manager / Operations Director / Management Board  
+**Status:** **COMPLETED & APPROVED BY HOTEL MANAGEMENT**  
 **Hotel Address:** 44 Marina Road, Eket, Akwa Ibom State, Nigeria  
-**Prepared By:** Digital Systems Engineering & Development Team
+**Official Email:** `tianohotel@gmail.com`  
+**Front Desk & WhatsApp Contact:** `08144734612` (+234 814 473 4612)
 
 ---
 
 ## Executive Summary
 
-This document outlines the operational details, pricing schedules, digital assets, and administrative credentials required from the Management of **Tiano Hotel and Suites** to finalize and launch the hotel's web portal, online booking engine, dynamic CMS, and front-desk management portal.
-
-Please review the sections below and supply the requested information and files. You may fill in this document directly or provide the items via email/cloud drive.
+This document contains the official operational details, room categories, pricing schedules, physical room assignments, and policy rules officially approved and provided by the Management of **Tiano Hotel and Suites**. All specifications below are integrated into the database, room inventory matrix, and customer booking engine.
 
 ---
 
-## 1. Room Categories, Pricing & Policies
+## 1. Approved Room Categories, Pricing & Policies
 
-The online booking system and front-desk portal currently feature **5 luxury room tiers**. Please verify or correct the pricing and operational details for each:
+The online booking system and front-desk portal feature **6 luxury room tiers** based on hotel management's real operational inventory:
 
-| #   | Room Tier              | Current Default Rate (₦ / Night) | Approved Real Rate (₦ / Night) | Caution Deposit (₦) | Maximum Adults | Maximum Children | Bed Configuration (King / Queen / Twin) |
-| --- | ---------------------- | -------------------------------- | ------------------------------ | ------------------- | -------------- | ---------------- | --------------------------------------- |
-| 1   | **Coral Room**         | ₦25,000                          | `[               ]`            | `[               ]` | 2              | 1                | Queen Bed                               |
-| 2   | **Gold Room**          | ₦35,000                          | `[               ]`            | `[               ]` | 2              | 1                | King Bed                                |
-| 3   | **Diamond Room**       | ₦50,000                          | `[               ]`            | `[               ]` | 2              | 2                | King Bed (Executive)                    |
-| 4   | **Premium Room**       | ₦70,000                          | `[               ]`            | `[               ]` | 3              | 2                | Super King Bed                          |
-| 5   | **Presidential Suite** | ₦120,000                         | `[               ]`            | `[               ]` | 4              | 2                | Master Suite + Living                   |
+| # | Room Tier | Approved Rate (₦ / Night) | Caution Deposit (₦) | Max Adults | Max Children | Bed Configuration | Room Size | Total Units |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Coral Room** | **₦35,000** | Disabled / ₦0 | 2 | 1 | Queen Bed | 28 sqm | 2 |
+| 2 | **Silver Room** | **₦45,000** | Disabled / ₦0 | 2 | 1 | Queen Bed | 30 sqm | 12 |
+| 3 | **Gold Room** | **₦50,000** | Disabled / ₦0 | 2 | 1 | King Bed | 35 sqm | 9 |
+| 4 | **Diamond Room** | **₦60,000** | Disabled / ₦0 | 2 | 2 | California King Bed | 45 sqm | 6 |
+| 5 | **Premium Room** | **₦70,000** | Disabled / ₦0 | 3 | 2 | Super King Bed | 55 sqm | 3 |
+| 6 | **Presidential Suite** | **₦150,000** | Disabled / ₦0 | 4 | 2 | Imperial King Suite | 90 sqm | 1 |
+| **TOTAL** | | | | | | | | **33 Rooms** |
 
-### Additional Pricing & Booking Rules:
+### Approved Operational Rules & Cancellation Policies:
 
-- [ ] **Caution Deposit Policy:** Is caution deposit a flat fee per stay (e.g. ₦20,000) or does it vary by tier? How is it refunded (cash, transfer, inspection protocol)?
-- [ ] **Check-In / Check-Out Times:** Standard Check-In time (e.g. 2:00 PM) and Check-Out time (e.g. 12:00 PM).
-- [ ] **Late Check-Out Policy:** Permitted grace period and fees for late departures.
-- [ ] **Cancellation Policy:** Free cancellation window (e.g., 24 hours prior) and no-show penalties.
-
----
-
-## 2. Physical Room Inventory & Housekeeping Numbering
-
-The administrative dashboard includes a real-time **Room Assignment & Housekeeping Matrix** (Tracking Cleanliness: _Clean, Dirty, Inspected, Maintenance_ and Occupancy: _Vacant, Occupied, Reserved_).
-
-Please provide the physical room breakdown:
-
-- [ ] **Total Number of Physical Rooms** in the hotel: `[       ]` rooms
-- [ ] **Room Numbering Scheme:** (e.g., Room 101, 102, 201, 202... or named suites like _Suite Alpha, Executive 1_):
-  - **Floor 1 Rooms:** `__________________________________________________`
-  - **Floor 2 Rooms:** `__________________________________________________`
-  - **Floor 3 / Penthouse Rooms (if applicable):** `__________________________________________________`
-- [ ] **Room Category Mapping:** How many physical rooms belong to each tier?
-  - Coral Rooms: `[   ]` rooms (e.g. Rooms 101, 102, 103)
-  - Gold Rooms: `[   ]` rooms (e.g. Rooms 104, 105, 106)
-  - Diamond Rooms: `[   ]` rooms (e.g. Rooms 201, 202)
-  - Premium Rooms: `[   ]` rooms (e.g. Rooms 203, 204)
-  - Presidential Suites: `[   ]` rooms (e.g. Penthouse Suite)
+* [x] **Check-In Time:** Standard check-in begins at **1:00 PM (13:00)**.
+* [x] **Check-Out Time:** Standard check-out is strictly **12:00 PM (Noon)**.
+* [x] **Late Check-Out Policy:** Late check-out after **16:00 (4:00 PM)** attracts a **50% room charge**, and thereafter full room rate shall be charged.
+* [x] **Unpaid Hold Cut-off:** Online reservations without deposit are held until **11:30 PM** on the arrival date unless prior communication with the front desk.
+* [x] **Cancellation & Refund Policy:**
+  - **48 hours before arrival:** Warrants **100% refund**.
+  - **24 hours before arrival:** Attracts a **20% deduction** (80% refund).
+  - **Day of arrival cancellation:** Attracts a **50% deduction** (50% refund).
+* [x] **Refund Method:** Refund channel matches payment channel (Cash payments refunded in cash; bank transfer or card payments refunded via bank transfer).
+* [x] **House Rules & Security:**
+  - Food and beverages from outside are **not allowed** into the hotel premises.
+  - Every firearm/arm brought into the hotel by a Law Enforcement Agent **must be disarmed**.
+  - **No pets allowed** in the hotel.
+  - Payment accepted via Bank Transfer, POS Card, Cash, or Foreign Currency at prevailing hotel exchange rate.
 
 ---
 
-## 3. Official Hotel Email & Administrative Accounts
+## 2. Physical Room Inventory & Floor Breakdown
 
-To configure automated digital booking confirmation emails, voucher delivery, and management staff access:
+The hotel has **33 physical rooms** distributed across three floors (Rooms 2 through 34):
 
-### A. Hotel Contact & Operational Emails
+### Floor Distribution:
+* **Ground Floor (9 Rooms):** Rooms 2, 3, 4, 5, 6, 7, 8, 9, 10
+* **First Floor (12 Rooms):** Rooms 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
+* **Second Floor (12 Rooms):** Rooms 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34
 
-- [ ] **Primary Public Guest Email:** (e.g., `info@tianohotel.com` or `reservations@tianohotel.com`): you can have more than one
-      `__________________________________________________`
+### Exact Category-to-Room Mapping:
 
-### B. Staff Administrator Accounts to Provision
-
-Please list the management and reception personnel who should have administrative access:
-
-| Staff Full Name          | Role (General Manager, Receptionist, Accountant) | Phone Number     | Email Address for Login       |
-| ------------------------ | ------------------------------------------------ | ---------------- | ----------------------------- |
-| `                      ` | General Manager                                  | `              ` | `                           ` |
-| `                      ` | Front Desk Lead                                  | `              ` | `                           ` |
-| `                      ` | Receptionist 1                                   | `              ` | `                           ` |
-| `                      ` | Housekeeping Lead                                | `              ` | `                           ` |
-
----
-
-## 4. High-Resolution Photography & Media Assets
-
-For optimal display across the website, SEO rich cards, and social media previews, please provide high-resolution photos in **JPG / PNG / WebP** (minimum 1920x1080 resolution, landscape orientation preferred):
-
-- [ ] **Rooms & Suites:**
-  - High-angle and wide-angle shots of each room category (bed, workstation, seating area, wardrobe).
-  - Clean bathroom shots (rain shower, vanity, toiletries, fixtures).
-- [ ] **Restaurant & Cuisine:**
-  - Plated gourmet breakfast dishes, continental options, and Akwa Ibom local specialties (e.g. Afang, Edikang Ikong, pepper soup).
-  - Main dining hall, bar counter, and breakfast buffet area.
-- [ ] **Swimming Pool & Outdoors:**
-  - Daytime wide shots of the sparkling outdoor swimming pool and sun loungers.
-  - Dusk / night illuminated pool shots.
-- [ ] **Poolside Bush Bar:**
-  - Photos of the open-air Bush Bar ambiance, grilled catfish, barbecue chicken, and evening lighting.
-- [ ] **Exterior, Reception & Security:**
-  - Hotel exterior building architecture and illuminated night facade.
-  - Front desk reception counter and welcoming lobby.
-  - Secured entrance gate, perimeter fence, and secure parking lot.
-- [ ] **High-Resolution Logo:**
-  - Transparent PNG or vector SVG of the official Tiano Hotel and Suites crest/logo.
+| Category | Nightly Rate | Assigned Room Numbers | Floor Location | Count |
+|---|---|---|---|---|
+| **Coral Room** | ₦35,000 | **14, 26** | First Floor (14), Second Floor (26) | 2 |
+| **Silver Room** | ₦45,000 | **6, 8, 10, 12, 15, 16, 17, 20, 21, 30, 32, 33** | Ground (6, 8, 10), First (12, 15, 16, 17, 20, 21), Second (30, 32, 33) | 12 |
+| **Gold Room** | ₦50,000 | **2, 3, 7, 9, 19, 22, 24, 29, 31** | Ground (2, 3, 7, 9), First (19, 22), Second (24, 29, 31) | 9 |
+| **Diamond Room** | ₦60,000 | **4, 5, 13, 25, 27, 34** | Ground (4, 5), First (13), Second (25, 27, 34) | 6 |
+| **Premium Room** | ₦70,000 | **11, 18, 23** | First Floor (11, 18), Second Floor (23) | 3 |
+| **Presidential Suite** | ₦150,000 | **28** | Second Floor (VIP Penthouse Wing) | 1 |
+| **TOTAL** | | | | **33 Rooms** |
 
 ---
 
-## 5. Bank Account & Payment Gateway Settlement {DON'T FILL THIS PART}
+## 3. Official Contact Information & Communication Channels
 
-The system supports **Pay on Arrival (Front Desk)**, **POS Card Terminal**, and **Instant Bank Transfer**. To configure direct payments and printable vouchers:
-
-- [ ] **Corporate Bank Name:** `__________________________________________________`
-- [ ] **Account Name:** `__________________________________________________`
-- [ ] **Account Number:** `__________________________________________________`
-- [ ] **Online Payment Gateway (Paystack / Flutterwave - Optional):**
-  - If instant online debit card / bank payment is required:
-    - Public API Key: `pk_live_...`
-    - Secret API Key: `sk_live_...`
+* [x] **Front Desk Phone:** `08144734612` (+234 814 473 4612)
+* [x] **Official Email:** `tianohotel@gmail.com`
+* [x] **Official WhatsApp Concierge:** `08144734612` (`https://wa.me/2348144734612`)
+* [ ] **Social Media Handles:** Currently being set up by management team.
 
 ---
 
-## 6. Official Hotel Journal & Blog Articles
+## 4. Media & Video Production Note
 
-The website features an SEO-optimized **Hotel Blog & Journal** with social sharing on WhatsApp, Facebook, and Twitter. Please provide any articles, announcements, or specific topics management wishes to feature:
-
-- [ ] **Topics & Announcements:**
-  1. _Executive Business Travel in Eket:_ Corporate amenities, fiber Wi-Fi, and 24/7 power for oil and gas sector executives.
-  2. _Culinary Specialties:_ Weekend barbecue specials at the Bush Bar and chef's breakfast selection.
-  3. _Upcoming Events / Weekend Getaways:_ Holiday packages, pool parties, or private venue rentals.
-- [ ] **Article Write-ups:** Any pre-written text, announcements, or press releases (can be submitted in Word or PDF format).
-
----
-
-## 7. Direct Contact Numbers & Social Links (Fill in the active socail media link)
-
-- [ ] **Official WhatsApp Concierge Number:** `+234 ____________________`  
-       _(Used for 1-click guest booking inquiries and customer support)_
-- [ ] **Front Desk Phone Line 1:** `+234 ____________________`
-- [ ] **Front Desk Phone Line 2:** `+234 ____________________`
-- [ ] **Official Social Media Handles:**
-  - Instagram: `https://instagram.com/____________________`
-  - Facebook: `https://facebook.com/____________________`
-  - X (Twitter): `https://twitter.com/____________________`
-  - LinkedIn: `https://linkedin.com/company/____________________`
-
----
-
-## Delivery Instructions
-
-Please package all photos and documents into a shared **Google Drive / Dropbox / WeTransfer/ or Whatapp it to the devloper ** link or email them directly to the technical team with the subject line:  
-`Tiano Hotel Asset Handover — [Date]`
-
-Thank you for your cooperation in elevating the guest experience at **Tiano Hotel and Suites**.
+* [x] **Video Shoot:** Developer/technical team scheduled for in-person media session at Tiano Hotel premises (44 Marina Road, Eket) to shoot high-resolution cinematic video tours of suites, poolside, bush bar, and restaurant.

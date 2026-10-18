@@ -32,6 +32,7 @@ $active_page = 'rooms';
 
 $slider_preview = [
     'coral-room'         => 'assets/img/room/room-img30.png',
+    'silver-room'        => 'assets/img/room/room-img10.png',
     'gold-room'          => 'assets/img/room/room-img13.jpeg',
     'diamond-room'       => 'assets/img/room/room-img15.jpeg',
     'premium-room'       => 'assets/img/room/room-img18.jpeg',

@@ -4,8 +4,8 @@
  * Exact structure from _html_backup/index.html with dynamic PHP variables
  */
 $hotel_phone   = get_setting($pdo, 'hotel_phone', '+234 814 473 4612');
-$hotel_email   = get_setting($pdo, 'hotel_email', 'webureabooking@weburea.com');
-$hotel_address = get_setting($pdo, 'hotel_address', '44 Marina road, Eket.');
+$hotel_email   = get_setting($pdo, 'hotel_email', 'tianohotel@gmail.com');
+$hotel_address = get_setting($pdo, 'hotel_address', '44 Marina Road, Eket, Akwa Ibom State, Nigeria');
 $fb_link       = get_setting($pdo, 'facebook_url', 'https://www.facebook.com/TianoSuites');
 $ig_link       = get_setting($pdo, 'instagram_url', 'https://www.instagram.com/TianoSuites');
 $clean_phone   = preg_replace('/[^0-9+]/', '', $hotel_phone);
