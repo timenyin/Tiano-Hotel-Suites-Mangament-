@@ -3,8 +3,9 @@
  * Tiano Hotel and Suites - Contact Us
  * Replicates the exact layout from _html_backup/contact.html with dynamic PHP variables
  */
-$page_title = 'Contact Us | Tiano Hotel & Suites';
-$page_desc  = 'Get in touch with Tiano Hotel and Suites for bookings, inquiries, and premium hospitality services in Eket, Akwa Ibom State.';
+$page_title = 'Contact & Concierge Desk | Tiano Hotel and Suites Eket';
+$page_desc  = 'Get in touch with Tiano Hotel and Suites for bookings, corporate inquiries, and premium hospitality services in Eket, Akwa Ibom State. Call +234 814 473 4612.';
+$page_og_img = 'assets/img/og-preview.jpg';
 $active_page = 'contact';
 
 require_once __DIR__ . '/include/head-seo.php';

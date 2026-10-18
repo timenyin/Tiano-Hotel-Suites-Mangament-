@@ -30,6 +30,42 @@ $page_title = htmlspecialchars($room['name']) . ' | Tiano Hotel & Suites';
 $page_desc  = htmlspecialchars($room['tagline'] ? $room['tagline'] : substr($room['description'], 0, 150));
 $active_page = 'rooms';
 
+$slider_preview = [
+    'coral-room'         => 'assets/img/room/room-img30.png',
+    'gold-room'          => 'assets/img/room/room-img13.jpeg',
+    'diamond-room'       => 'assets/img/room/room-img15.jpeg',
+    'premium-room'       => 'assets/img/room/room-img18.jpeg',
+    'presidential-suite' => 'assets/img/room/room-img21.jpeg',
+    'presidentalsuite'   => 'assets/img/room/room-img21.jpeg',
+];
+$page_og_img = $slider_preview[$room['slug']] ?? 'assets/img/og-preview.jpg';
+
+// Structured Data for HotelRoom Google Rich Snippet
+$roomPrice = (float)($room['price_per_night'] ?? 35000);
+$schema_json = json_encode([
+    "@context" => "https://schema.org",
+    "@type" => "HotelRoom",
+    "name" => $room['name'] . " at Tiano Hotel & Suites",
+    "description" => $room['tagline'] ?: $room['description'],
+    "image" => "https://www.tianohotel.com/" . ltrim($page_og_img, '/'),
+    "bed" => [
+        "@type" => "BedDetails",
+        "numberOfBeds" => 1,
+        "typeOfBed" => $room['bed_type'] ?? "Queen Bed"
+    ],
+    "occupancy" => [
+        "@type" => "QuantitativeValue",
+        "maxValue" => (int)($room['max_adults'] ?? 2)
+    ],
+    "offers" => [
+        "@type" => "Offer",
+        "price" => $roomPrice,
+        "priceCurrency" => "NGN",
+        "availability" => "https://schema.org/InStock",
+        "validFrom" => date('Y-01-01')
+    ]
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
 require_once __DIR__ . '/include/head-seo.php';
 require_once __DIR__ . '/include/topbar.php';
 require_once __DIR__ . '/include/navbar.php';

@@ -11,27 +11,32 @@ $currentProtocol = $isHttps ? 'https://' : 'http://';
 $currentHost = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $currentUri = $_SERVER['REQUEST_URI'] ?? '/Tiano-Hotel/';
 $localBaseUrl = $currentProtocol . $currentHost . '/Tiano-Hotel/';
+
+// Resolve canonical production URL from database settings if available
 $prodBaseUrl = 'https://www.tianohotel.com/';
+if (isset($pdo)) {
+    $dbSiteUrl = get_setting($pdo, 'site_url', 'https://www.tianohotel.com');
+    if (!empty($dbSiteUrl)) {
+        $prodBaseUrl = rtrim($dbSiteUrl, '/') . '/';
+    }
+}
 
 // Default Meta Properties
 $page_title = isset($page_title) ? $page_title : 'Tiano Hotel and Suites | Luxury Accommodation in Eket, Akwa Ibom';
 $page_desc  = isset($page_desc) ? $page_desc : 'Experience world-class luxury at Tiano Hotel and Suites, located at 44 Marina Road, Eket. 24/7 power, swimming pool, executive suites, and secured hospitality.';
 $page_rel_img = isset($page_og_img) ? $page_og_img : 'assets/img/og-preview.jpg';
 
-// Absolute Canonical URL (Guarantees independent page indexing per seo.md)
+// Absolute Canonical URL (Guarantees independent page indexing per Google Search Console guidelines)
 if (!isset($page_canonical)) {
-    // Generate canonical pointing to production domain while maintaining current script name
     $scriptName = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
     $page_canonical = $prodBaseUrl . ($scriptName === 'index.php' ? '' : $scriptName);
 }
 
-// Absolute Image URL for WhatsApp & Social bots (WhatsApp requires absolute URL under 300KB)
+// Absolute Image URL for WhatsApp & Social bots (WhatsApp requires absolute HTTPS URL under 300KB)
 if (strpos($page_rel_img, 'http://') === 0 || strpos($page_rel_img, 'https://') === 0) {
     $page_og_img_abs = $page_rel_img;
 } else {
-    // Ensure clean relative path without leading slash
     $cleanRel = ltrim($page_rel_img, '/');
-    // If running in development, construct reachable absolute URL, but maintain production fallback
     $page_og_img_abs = $prodBaseUrl . $cleanRel;
 }
 
@@ -52,6 +57,7 @@ $page_og_type = isset($page_og_type) ? $page_og_type : 'website';
     
     <!-- Explicit Canonical Tag (Prevents Google search console collapsing) -->
     <link rel="canonical" href="<?php echo htmlspecialchars($page_canonical); ?>">
+    <link rel="image_src" href="<?php echo htmlspecialchars($page_og_img_abs); ?>">
 
     <meta name="description" content="<?php echo htmlspecialchars($page_desc); ?>">
     <meta name="keywords" content="Tiano Hotel and Suites, Hotel in Eket, Luxury Hotel Marina Road Eket, Accommodation in Akwa Ibom, Presidential Suite Eket, Hotel with Pool Eket, Secure Hotel Akwa Ibom, Tiano Suites, Best Hotel in Eket, Hotel in eket price, Luxury hotel in eket">
@@ -88,7 +94,9 @@ $page_og_type = isset($page_og_type) ? $page_og_type : 'website';
       "description": "Premier boutique hotel and luxury suites in Eket, Akwa Ibom State, Nigeria.",
       "url": "https://www.tianohotel.com",
       "telephone": "+2348144734612",
-      "priceRange": "₦35,000 - ₦150,000",
+      "priceRange": "₦35,000 - ₦250,000",
+      "currenciesAccepted": "NGN",
+      "openingHours": "Mo-Su 00:00-24:00",
       "image": "https://www.tianohotel.com/assets/img/og-preview.jpg",
       "address": {
         "@type": "PostalAddress",

@@ -3,8 +3,9 @@
  * Tiano Hotel and Suites - Services Directory
  * Replicates the exact structure from _html_backup/services.html
  */
-$page_title = 'Services | Tiano Hotel & Suites';
+$page_title = 'Hospitality Services & Amenities | Tiano Hotel and Suites Eket';
 $page_desc  = 'Experience world-class service & amenities: Luxurious Accommodation, Complimentary Breakfast, Wellness & Recreation, and Secured Environment in Eket.';
+$page_og_img = 'assets/img/Comfortable Accommodation.jpg';
 $active_page = 'services';
 
 require_once __DIR__ . '/include/head-seo.php';

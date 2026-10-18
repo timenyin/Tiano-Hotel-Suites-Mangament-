@@ -29,6 +29,9 @@ if (!$service) {
     exit;
 }
 
+$service_img = !empty($service['featured_image']) ? $service['featured_image'] : ($service_image_map[$service['slug']] ?? 'assets/img/Comfortable Accommodation.jpg');
+$page_og_img = $service_img;
+
 $page_title = htmlspecialchars($service['title']) . ' | Tiano Hotel & Suites';
 $page_desc  = htmlspecialchars($service['short_description']);
 $active_page = 'services';
@@ -37,7 +40,6 @@ require_once __DIR__ . '/include/head-seo.php';
 require_once __DIR__ . '/include/topbar.php';
 require_once __DIR__ . '/include/navbar.php';
 
-$service_img = !empty($service['featured_image']) ? $service['featured_image'] : ($service_image_map[$service['slug']] ?? 'assets/img/Comfortable Accommodation.jpg');
 $all_services = get_services($pdo);
 
 // Content & facilities by service

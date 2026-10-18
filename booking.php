@@ -6,8 +6,9 @@
  */
 require_once __DIR__ . '/include/functions.php';
 
-$page_title = 'Reserve Your Stay | Tiano Hotel and Suites Eket';
-$page_desc  = 'Reserve luxury rooms and suites at Tiano Hotel & Suites, Eket. Best rates guaranteed, zero online prepayment, pay physically at check-in.';
+$page_title = 'Online Room Reservation | Tiano Hotel and Suites Eket';
+$page_desc  = 'Reserve luxury rooms and suites at Tiano Hotel & Suites, Eket. Best rates guaranteed, zero online prepayment, pay physically upon arrival.';
+$page_og_img = 'assets/img/og-preview.jpg';
 $active_page = 'booking';
 
 require_once __DIR__ . '/include/head-seo.php';

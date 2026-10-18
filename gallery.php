@@ -3,8 +3,9 @@
  * Tiano Hotel and Suites - Photo Gallery
  * Exact 4-tab structure from _html_backup/gallery.html
  */
-$page_title = 'Gallery | Tiano Hotel & Suites';
+$page_title = 'Photo Gallery | Tiano Hotel and Suites Eket';
 $page_desc  = 'Explore our hotel photo gallery: luxury rooms, exquisite dining, sparkling pool, and tranquil outdoor recreation at 44 Marina Road, Eket.';
+$page_og_img = 'assets/img/gallery/gallery-img1.jpg';
 $active_page = 'gallery';
 
 require_once __DIR__ . '/include/head-seo.php';

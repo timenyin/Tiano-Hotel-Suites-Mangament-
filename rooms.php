@@ -3,8 +3,9 @@
  * Tiano Hotel and Suites - Rooms & Rates
  * Replicates the exact 3-column .room-card layout from _html_backup/room.html
  */
-$page_title = 'Rooms | Tiano Hotel & Suites';
-$page_desc  = 'Browse our rooms & rates in Eket: Coral Room, Gold Room, Diamond Room, Premium Room, and Presidential Suite.';
+$page_title = 'Luxury Rooms & Suites in Eket | Tiano Hotel and Suites';
+$page_desc  = 'Browse our luxury rooms & suites in Eket, Akwa Ibom: Coral Room, Gold Room, Diamond Room, Premium Room, and Presidential Suite with 24/7 power, pool, and gourmet dining.';
+$page_og_img = 'assets/img/room/room-img30.png';
 $active_page = 'rooms';
 
 require_once __DIR__ . '/include/head-seo.php';
