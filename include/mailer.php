@@ -324,6 +324,21 @@ function buildTicketPassEmailTemplate(array $booking, string $voucherUrl): strin
 NOTE;
     }
 
+    $cautionRowHtml = '';
+    if (!empty($booking['caution_deposit']) && (float)$booking['caution_deposit'] > 0) {
+        $cautionRowHtml = <<<ROW
+        <tr style="border-bottom:1px solid #f1f5f9;">
+            <td align="left">
+                <strong>Refundable Caution Deposit</strong><br>
+                <small style="color:#64748b;">Reconciled / refunded upon checkout</small>
+            </td>
+            <td align="center">-</td>
+            <td align="center">1</td>
+            <td align="right" style="font-weight:700;">&#8358;{$cautionDep}</td>
+        </tr>
+ROW;
+    }
+
     return <<<HTML
 <!DOCTYPE html>
 <html lang="en">
@@ -556,15 +571,7 @@ NOTE;
                                     <td align="center" style="white-space:nowrap;">{$nights} night(s)</td>
                                     <td align="right" style="font-weight:700;white-space:nowrap;">&#8358;{$totalAmount}</td>
                                 </tr>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td align="left">
-                                        <strong>Refundable Caution Deposit</strong><br>
-                                        <small style="color:#64748b;">Reconciled / refunded upon checkout</small>
-                                    </td>
-                                    <td align="center">-</td>
-                                    <td align="center">1</td>
-                                    <td align="right" style="font-weight:700;">&#8358;{$cautionDep}</td>
-                                </tr>
+{$cautionRowHtml}
                                 <tr style="background-color:#fafafa;border-top:2px solid #e2e8f0;">
                                     <td colspan="3" align="right" style="font-weight:800;color:#0f172a;font-size:14px;padding:12px 8px;">
                                         Total Payable at Front Desk:

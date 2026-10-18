@@ -57,7 +57,9 @@ if ($ts_out <= $ts_in) {
 $nights = max(1, (int)round(($ts_out - $ts_in) / (60 * 60 * 24)));
 $nightly_rate = (float)$category['price_per_night'];
 $total_amount = $nightly_rate * $nights;
-$caution_deposit = (float)get_setting($pdo, 'caution_deposit_default', 10000.00);
+$caution_enabled = (get_setting($pdo, 'caution_deposit_enabled', '0') === '1');
+$caution_raw     = (float)get_setting($pdo, 'caution_deposit_default', 0.00);
+$caution_deposit = ($caution_enabled && $caution_raw > 0) ? $caution_raw : 0.00;
 
 // Generate unique booking reference
 $booking_reference = generate_booking_reference();

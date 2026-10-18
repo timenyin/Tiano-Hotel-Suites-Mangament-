@@ -60,7 +60,9 @@ $hotel_phone    = get_setting($pdo, 'hotel_phone', '+234 814 473 4612');
 $hotel_whatsapp = get_setting($pdo, 'hotel_whatsapp', '2348144734612');
 $clean_phone    = preg_replace('/[^0-9+]/', '', $hotel_phone);
 $clean_whatsapp = preg_replace('/[^0-9]/', '', $hotel_whatsapp);
-$caution_deposit_val = (float)get_setting($pdo, 'caution_deposit_default', 10000.00);
+$caution_deposit_enabled = (get_setting($pdo, 'caution_deposit_enabled', '0') === '1');
+$caution_deposit_raw     = (float)get_setting($pdo, 'caution_deposit_default', 0.00);
+$caution_deposit_val     = ($caution_deposit_enabled && $caution_deposit_raw > 0) ? $caution_deposit_raw : 0.00;
 
 // Exact room slideshow images map matching room-details.php for each tier
 $room_gallery_map = [
@@ -471,7 +473,7 @@ if (empty($initial_slides) && !empty($categories_json)) {
                                         <span class="text-muted">Room Rate (<span id="calcNightsLabel">1 night</span>):</span>
                                         <span class="fw-semibold" id="calcRoomTotal">&#x20A6;35,000</span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2" style="font-size:14px;">
+                                    <div class="d-flex justify-content-between align-items-center mb-2" id="calcCautionRow" style="font-size:14px;<?php echo ($caution_deposit_val <= 0) ? 'display:none !important;' : ''; ?>">
                                         <span class="text-muted" title="Reconciled or fully refunded upon checkout">
                                             Refundable Caution Deposit: <i class="bx bx-info-circle text-muted" style="font-size:13px;"></i>
                                         </span>
@@ -819,6 +821,7 @@ textarea.custom-input {
 document.addEventListener('DOMContentLoaded', function () {
     const categories = <?php echo json_encode($categories_json); ?>;
     const cautionDeposit = <?php echo (float)$caution_deposit_val; ?>;
+    const cautionEnabled = <?php echo ($caution_deposit_val > 0) ? 'true' : 'false'; ?>;
 
     const checkInInput  = document.getElementById('check_in_date');
     const checkOutInput = document.getElementById('check_out_date');
@@ -956,10 +959,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Finance calculations
         const roomTotal = cat.price * nights;
-        const grandTotal = roomTotal + cautionDeposit;
+        const grandTotal = roomTotal + (cautionEnabled ? cautionDeposit : 0);
 
         calcRoomTotal.textContent = formatNaira(roomTotal);
         calcGrandTotal.textContent = formatNaira(grandTotal);
+
+        const cautionRow = document.getElementById('calcCautionRow');
+        if (cautionRow) {
+            cautionRow.style.display = (cautionEnabled && cautionDeposit > 0) ? 'flex' : 'none';
+        }
     }
 
     // Radio change listeners

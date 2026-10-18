@@ -239,6 +239,7 @@ $wa_url = "https://wa.me/" . htmlspecialchars($hotel_whatsapp) . "?text=" . urle
                                             <td class="text-center text-nowrap" style="white-space:nowrap;"><span style="display:inline-block;white-space:nowrap !important;"><?php echo $booking['nights']; ?> night<?php echo $booking['nights'] > 1 ? 's' : ''; ?></span></td>
                                             <td class="text-end fw-semibold text-nowrap" style="white-space:nowrap;"><?php echo format_naira($booking['total_amount']); ?></td>
                                         </tr>
+                                        <?php if (!empty($booking['caution_deposit']) && (float)$booking['caution_deposit'] > 0): ?>
                                         <tr>
                                             <td>
                                                 <strong>Refundable Caution Deposit</strong>
@@ -248,6 +249,7 @@ $wa_url = "https://wa.me/" . htmlspecialchars($hotel_whatsapp) . "?text=" . urle
                                             <td class="text-center text-nowrap" style="white-space:nowrap;">1</td>
                                             <td class="text-end fw-semibold text-nowrap" style="white-space:nowrap;"><?php echo format_naira($booking['caution_deposit']); ?></td>
                                         </tr>
+                                        <?php endif; ?>
                                         <tr class="ticket-total-row">
                                             <th colspan="3" class="text-end">Total Payable at Front Desk:</th>
                                             <th class="text-end text-danger fs-5 fw-bold"><?php echo format_naira($booking['total_amount'] + $booking['caution_deposit']); ?></th>

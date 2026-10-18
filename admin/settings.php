@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         'hotel_address'           => trim($_POST['hotel_address'] ?? '44 Marina Road, Eket, Akwa Ibom State, Nigeria'),
         'checkin_time'            => trim($_POST['checkin_time'] ?? '1:00 PM'),
         'checkout_time'           => trim($_POST['checkout_time'] ?? '12:00 PM'),
-        'caution_deposit_default' => trim($_POST['caution_deposit_default'] ?? '10000'),
+        'caution_deposit_enabled' => (isset($_POST['caution_deposit_enabled']) && $_POST['caution_deposit_enabled'] === '1') ? '1' : '0',
+        'caution_deposit_default' => trim($_POST['caution_deposit_default'] ?? '0'),
         'site_url'                => trim($_POST['site_url'] ?? 'https://www.tianohotel.com'),
         'facebook_url'            => trim($_POST['facebook_url'] ?? ''),
         'instagram_url'           => trim($_POST['instagram_url'] ?? ''),
@@ -138,20 +139,64 @@ foreach ($rawSettings as $rs) {
                     <i class="bx bx-time text-danger fs-4"></i> Arrival Policies &amp; Financials
                 </h5>
                 <div class="row g-3">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label small fw-bold text-muted text-uppercase">Check-In Start Time</label>
                         <input type="text" name="checkin_time" class="form-control" value="<?php echo htmlspecialchars($settings['checkin_time'] ?? '1:00 PM'); ?>">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label small fw-bold text-muted text-uppercase">Check-Out Deadline</label>
                         <input type="text" name="checkout_time" class="form-control" value="<?php echo htmlspecialchars($settings['checkout_time'] ?? '12:00 PM'); ?>">
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-bold text-muted text-uppercase">Default Caution Deposit (&#8358;)</label>
-                        <input type="number" name="caution_deposit_default" class="form-control" value="<?php echo htmlspecialchars($settings['caution_deposit_default'] ?? '10000'); ?>">
-                    </div>
+
+                    <!-- Refundable Caution Deposit Toggle & Settings -->
                     <div class="col-12">
-                        <label class="form-label small fw-bold text-muted text-uppercase">Canonical Production Site URL (For WhatsApp &amp; SEO previews)</label>
+                        <div class="p-3 rounded-3 border" style="background:#fcfcfd;">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                                <div>
+                                    <label class="form-label small fw-bold text-dark text-uppercase mb-0 d-flex align-items-center gap-2">
+                                        <i class="bx bx-shield-quarter text-danger fs-5"></i>
+                                        Refundable Caution Deposit Policy
+                                    </label>
+                                    <small class="text-muted d-block mt-1">
+                                        Toggle whether a refundable incidental deposit is charged and shown to guests on the front-end reservation summary.
+                                    </small>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Caution Deposit Toggle">
+                                    <input type="radio" class="btn-check" name="caution_deposit_enabled" id="cautionDepositActive" value="1" <?php echo (($settings['caution_deposit_enabled'] ?? '0') === '1') ? 'checked' : ''; ?> onchange="toggleCautionDeposit(true)">
+                                    <label class="btn btn-outline-success fw-bold px-3 py-1" for="cautionDepositActive" style="font-size:12px;">
+                                        <i class="bx bx-check-circle me-1"></i> Active (Visible)
+                                    </label>
+
+                                    <input type="radio" class="btn-check" name="caution_deposit_enabled" id="cautionDepositHidden" value="0" <?php echo (($settings['caution_deposit_enabled'] ?? '0') === '0') ? 'checked' : ''; ?> onchange="toggleCautionDeposit(false)">
+                                    <label class="btn btn-outline-secondary fw-bold px-3 py-1" for="cautionDepositHidden" style="font-size:12px;">
+                                        <i class="bx bx-hide me-1"></i> Hidden (Do Not Display)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 align-items-center mt-2" id="cautionAmountWrapper">
+                                <div class="col-md-5">
+                                    <label class="form-label small fw-semibold text-muted text-uppercase mb-1">Caution Deposit Amount (&#8358;)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">&#8358;</span>
+                                        <input type="number" name="caution_deposit_default" id="cautionDepositInput" class="form-control" value="<?php echo htmlspecialchars($settings['caution_deposit_default'] ?? '0'); ?>" min="0" step="500">
+                                    </div>
+                                </div>
+                                <div class="col-md-7 pt-md-4">
+                                    <div id="cautionStatusNotice" class="small fw-medium p-2 rounded-2 <?php echo (($settings['caution_deposit_enabled'] ?? '0') === '1') ? 'bg-success-subtle text-success' : 'bg-light text-muted border'; ?>">
+                                        <?php if (($settings['caution_deposit_enabled'] ?? '0') === '1'): ?>
+                                            <i class="bx bx-check-circle me-1"></i> <strong>Active:</strong> Guests see this deposit itemised on the booking quote and digital passes.
+                                        <?php else: ?>
+                                            <i class="bx bx-hide me-1"></i> <strong>Hidden:</strong> Completely removed from front-end booking summary, live quote, and total calculation.
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Canonical Production Site URL (For WhatsApp, Sitemap &amp; SEO previews)</label>
                         <input type="url" name="site_url" class="form-control font-monospace" value="<?php echo htmlspecialchars($settings['site_url'] ?? 'https://www.tianohotel.com'); ?>">
                     </div>
                 </div>
@@ -251,6 +296,23 @@ function previewCurrentTone() {
     const tone = toneSelect ? toneSelect.value : 'concierge_bell';
     if (window.TianoAlerts && typeof window.TianoAlerts.previewTone === 'function') {
         window.TianoAlerts.previewTone(tone);
+    }
+}
+
+function toggleCautionDeposit(active) {
+    const notice = document.getElementById('cautionStatusNotice');
+    const input = document.getElementById('cautionDepositInput');
+    if (!notice) return;
+
+    if (active) {
+        notice.className = 'small fw-medium p-2 rounded-2 bg-success-subtle text-success';
+        notice.innerHTML = '<i class="bx bx-check-circle me-1"></i> <strong>Active:</strong> Guests see this deposit itemised on the booking quote and digital passes.';
+        if (input && Number(input.value) === 0) {
+            input.value = 10000;
+        }
+    } else {
+        notice.className = 'small fw-medium p-2 rounded-2 bg-light text-muted border';
+        notice.innerHTML = '<i class="bx bx-hide me-1"></i> <strong>Hidden:</strong> Completely removed from front-end booking summary, live quote, and total calculation.';
     }
 }
 </script>

@@ -1,0 +1,44 @@
+# ==============================================================================
+# Tiano Hotel & Suites - Production Apache Security Directives & Router
+# ==============================================================================
+
+# Disable Directory Browsing
+Options -Indexes
+
+# Set Default Charset
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent Google & Search Bots from crawling/indexing Admin Management Backend
+    RewriteCond %{REQUEST_URI} ^.*/admin/ [NC]
+    RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yandex|duckduckbot|baiduspider|slurp|teoma) [NC]
+    RewriteRule .* - [F,L]
+
+    # Block direct access to private directories
+    RewriteRule ^(sql|doc|_html_backup|\.git|\.agents)/ - [F,L,NC]
+</IfModule>
+
+# Set X-Robots-Tag Headers to Prevent Crawling of Admin & Private Assets
+<IfModule mod_headers.c>
+    # Security Headers for all responses
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+
+    # Admin Management Portal & Internal APIs: Force No-Index
+    SetEnvIf Request_URI "(admin|includes|include|controllers)" IS_PRIVATE_PATH=1
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet" env=IS_PRIVATE_PATH
+</IfModule>
+
+# Protect Sensitive Configuration, SQL, Logs, and Database Files
+<FilesMatch "^(pdoconfig\.php|\.env|\.git.*|composer\.(json|lock)|.*\.sql|.*\.log|.*\.bak|.*\.sh)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

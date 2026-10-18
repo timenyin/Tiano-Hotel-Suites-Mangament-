@@ -21,6 +21,7 @@ INSERT INTO `site_settings` (`setting_key`, `setting_value`, `category`, `descri
 ('checkin_time', '1:00 PM', 'operations', 'Standard daily check-in start time'),
 ('checkout_time', '12:00 PM', 'operations', 'Standard daily check-out deadline'),
 ('hold_expiry_time', '6:00 PM', 'operations', 'Cut-off time for unpaid reservations on arrival day'),
+('caution_deposit_enabled', '0', 'finance', 'Toggle visibility of caution deposit on guest booking summary (1=Active, 0=Hidden)'),
 ('caution_deposit_default', '10000', 'finance', 'Default refundable incidental caution deposit in NGN'),
 ('currency_symbol', '₦', 'finance', 'Nigerian Naira currency display symbol'),
 ('currency_code', 'NGN', 'finance', 'Standard currency ISO code'),

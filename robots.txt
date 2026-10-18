@@ -1,0 +1,35 @@
+# ==============================================================================
+# Robots.txt for Tiano Hotel and Suites
+# Website: https://www.tianohotel.com
+# Location: 44 Marina Road, Eket, Akwa Ibom State, Nigeria
+# ==============================================================================
+
+User-agent: *
+
+# --- Management & Administrative Portals (Strictly Private) ---
+Disallow: /admin/
+Disallow: /admin/*
+
+# --- Backend Application Infrastructure & Code ---
+Disallow: /include/
+Disallow: /includes/
+Disallow: /controllers/
+Disallow: /sql/
+Disallow: /doc/
+Disallow: /_html_backup/
+Disallow: /vendor/
+
+# --- Private Utilities & Dynamic Transaction Passes ---
+Disallow: /voucher.php
+Disallow: /clear_cache.php
+Disallow: /unsubscribe.php
+
+# --- Public Assets Allowed for Rendering & Indexing ---
+Allow: /assets/
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/fonts/
+Allow: /assets/img/
+
+# --- Public Canonical Sitemap ---
+Sitemap: https://www.tianohotel.com/sitemap.xml

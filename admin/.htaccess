@@ -1,0 +1,30 @@
+# ==============================================================================
+# Tiano Hotel & Suites - Administrative Console Security Directives
+# Strictly Prohibit Search Engine Crawling, Scraping & Indexing
+# ==============================================================================
+
+# 1. Instruct All Search Engines Never to Index or Follow Admin Content
+<IfModule mod_headers.c>
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet, noimageindex"
+</IfModule>
+
+# 2. Block Known Search Engine Crawlers & Bots at Gateway Level
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yandex|duckduckbot|baiduspider|slurp|teoma|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# 3. Disable Directory Browsing
+Options -Indexes
+
+# 4. Deny Access to Sensitive File Extensions
+<FilesMatch "\.(sql|log|ini|env|sh|bak|md|git|htaccess)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
