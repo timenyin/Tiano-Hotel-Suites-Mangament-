@@ -339,7 +339,9 @@ Based on this comprehensive analysis, here are the top 5 high-impact improvement
 | Role | Username / Identifier | Official Staff Email | Default Password | Status | Access Scope |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Super Administrator** | `admin` | `support@tianohotelandsuites.com` | `Admin@Tiano2026` | Active (Verified) | Full Cockpit Access: Bookings, Rooms & Rates, Inventory, Services, Blog, Newsletter Broadcasts, Site Settings, Staff Activity Logs, and Security Configuration. |
-| **Front Desk Reception** | `frontdesk` | `frontdesk@tianohotel.com` | `Admin@Tiano2026` | Active (Verified) | Front-Desk Operations: Guest check-in/out, physical room assignment, cash/POS/transfer payment approval, and reservation voucher verification. |
+| **Dev / Technical Admin** | `dev` | `dev@tianohotelandsuites.com` | `DevOps@Tiano2026!` | Active (Verified) | Full Technical Operations & Developer Superadmin: Database migrations, system health monitoring, error logs, and backup oversight. |
+| **General Management** | `manager` | `management@tianohotelandsuites.com` | `Manager@Tiano2026` | Active (Verified) | Operational Management: Room rates, reservations, housekeeping oversight, financial reviews, and operational auditing. |
+| **Front Desk Reception** | `reception` *(or `frontdesk`)* | `frontdesk@tianohotelandsuites.com` | `FrontDesk@Tiano2026` | Active (Verified) | Front-Desk Operations: Guest check-in/out, physical room assignment (Rooms 2–34), cash/POS/transfer payment approval, and voucher verification. |
 
 ### Technical Server & Database Credentials Reference
 
@@ -348,8 +350,9 @@ Based on this comprehensive analysis, here are the top 5 high-impact improvement
 * **Live Database User:** `tianohot_hotel_user`
 * **Live Database Password:** `AWjI65%&gC*(p5xk`
 * **Local Database (XAMPP):** `tiano_hotel_db` | User: `root` | Password: *(empty)*
-* **Transactional Mail Relay:** `mail.weburea.com` | Port: `465` (SSL) | User: `webureabooking@weburea.com`
+* **Transactional Mail Relay:** `s9621.fra1.stableserver.net` | Port: `465` (SSL) | User: `support@tianohotelandsuites.com` | Password: `Tiano2k_@`
 
 ---
 *End of Documentation — Tiano Hotel & Suites.*
+
 

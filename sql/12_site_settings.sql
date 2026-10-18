@@ -16,7 +16,8 @@ INSERT INTO `site_settings` (`setting_key`, `setting_value`, `category`, `descri
 ('hotel_phone', '+234 814 473 4612', 'contact', 'Primary reception phone line'),
 ('hotel_alt_phone', '+234 803 762 1990', 'contact', 'Secondary manager contact line'),
 ('hotel_whatsapp', '2348144734612', 'contact', 'WhatsApp concierge direct phone number with country code'),
-('hotel_email', 'tianohotel@gmail.com', 'contact', 'Official reservations and support email'),
+('hotel_email', 'support@tianohotelandsuites.com', 'contact', 'Official reservations and support email'),
+
 ('hotel_address', '44 Marina Road, Eket, Akwa Ibom State, Nigeria', 'contact', 'Physical hotel premises location'),
 ('checkin_time', '1:00 PM', 'operations', 'Standard daily check-in start time'),
 ('checkout_time', '12:00 PM', 'operations', 'Standard daily check-out deadline'),

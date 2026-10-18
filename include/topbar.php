@@ -3,8 +3,9 @@
  * Tiano Hotel & Suites - Modular Top Header Bar
  */
 $hotel_phone   = get_setting($pdo, 'hotel_phone', '+234 814 473 4612');
-$hotel_email   = get_setting($pdo, 'hotel_email', 'tianohotel@gmail.com');
+$hotel_email   = get_setting($pdo, 'hotel_email', 'support@tianohotelandsuites.com');
 $hotel_address = get_setting($pdo, 'hotel_address', '44 Marina Road, Eket, Akwa Ibom State, Nigeria');
+
 ?>
 <!-- Top Header -->
 <header class="top-header top-header-bg">

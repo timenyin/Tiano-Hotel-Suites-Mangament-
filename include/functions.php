@@ -324,18 +324,65 @@ try {
 } catch (Exception $e) {}
 
 try {
-    $pdo->exec("UPDATE site_settings SET setting_value = 'webureabooking@weburea.com' WHERE setting_key = 'hotel_email' AND (setting_value LIKE '%@gmail.com' OR setting_value = '' OR setting_value IS NULL)");
+    $pdo->exec("UPDATE site_settings SET setting_value = 'support@tianohotelandsuites.com' WHERE setting_key = 'hotel_email' AND (setting_value LIKE '%@gmail.com' OR setting_value LIKE '%@weburea.com' OR setting_value = '' OR setting_value IS NULL)");
 } catch (Exception $e) {}
 
-// Self-healing: Ensure default admin account has correct bcrypt hash for Admin@Tiano2026
+// Self-healing: Provision and sync official 4-tier staff management accounts
 try {
-    $correctAdminHash = '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW';
-    $stmtAdm = $pdo->prepare("SELECT id, password_hash, is_verified, status FROM admin_users WHERE username = 'admin' OR email = 'support@tianohotelandsuites.com' LIMIT 1");
-    $stmtAdm->execute();
-    $adm = $stmtAdm->fetch();
-    if ($adm) {
-        if (!password_verify('Admin@Tiano2026', $adm['password_hash']) || (int)$adm['is_verified'] === 0 || $adm['status'] !== 'active') {
-            $pdo->prepare("UPDATE admin_users SET password_hash = ?, is_verified = 1, status = 'active' WHERE id = ?")->execute([$correctAdminHash, $adm['id']]);
+    $officialStaff = [
+        [
+            'username' => 'admin',
+            'fullname' => 'Tiano Hotel Administrator',
+            'email'    => 'support@tianohotelandsuites.com',
+            'hash'     => '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', // Admin@Tiano2026
+            'pwdCheck' => 'Admin@Tiano2026',
+            'role'     => 'super_admin'
+        ],
+        [
+            'username' => 'dev',
+            'fullname' => 'Weburea Dev Ops',
+            'email'    => 'dev@tianohotelandsuites.com',
+            'hash'     => '$2y$10$F46UCRKxM7maLKqVsWUUAusCn/fIMhM80Vd8I9rQC49ZxBMW2GpUe', // DevOps@Tiano2026!
+            'pwdCheck' => 'DevOps@Tiano2026!',
+            'role'     => 'super_admin'
+        ],
+        [
+            'username' => 'manager',
+            'fullname' => 'Tiano General Manager',
+            'email'    => 'management@tianohotelandsuites.com',
+            'hash'     => '$2y$10$dyVECavZVevoPzkpnsSVO.r0H/NwE2oVYQHYezncNOn7DaOOBXw6u', // Manager@Tiano2026
+            'pwdCheck' => 'Manager@Tiano2026',
+            'role'     => 'manager'
+        ],
+        [
+            'username' => 'reception',
+            'fullname' => 'Tiano Front Desk Reception',
+            'email'    => 'frontdesk@tianohotelandsuites.com',
+            'hash'     => '$2y$10$wV8qrI3Zm/fQD/xrf5xp1.gcvtfjqMUShBxuobj.alPPrI6pFJMyi', // FrontDesk@Tiano2026
+            'pwdCheck' => 'FrontDesk@Tiano2026',
+            'role'     => 'receptionist'
+        ],
+    ];
+
+    foreach ($officialStaff as $staff) {
+        $stmtChk = $pdo->prepare("SELECT id, password_hash, is_verified, status, role FROM admin_users WHERE username = ? OR email = ? LIMIT 1");
+        $stmtChk->execute([$staff['username'], $staff['email']]);
+        $existing = $stmtChk->fetch();
+
+        if ($existing) {
+            // Update password hash if invalid, and ensure verified active status
+            if (!password_verify($staff['pwdCheck'], $existing['password_hash']) || (int)$existing['is_verified'] === 0 || $existing['status'] !== 'active' || $existing['role'] !== $staff['role']) {
+                $stmtUp = $pdo->prepare("UPDATE admin_users SET password_hash = ?, is_verified = 1, status = 'active', role = ? WHERE id = ?");
+                $stmtUp->execute([$staff['hash'], $staff['role'], $existing['id']]);
+            }
+        } else {
+            // Insert staff account if not yet present
+            $stmtIns = $pdo->prepare("
+                INSERT INTO admin_users (username, fullname, email, password_hash, role, is_verified, status, created_at)
+                VALUES (?, ?, ?, ?, ?, 1, 'active', NOW())
+            ");
+            $stmtIns->execute([$staff['username'], $staff['fullname'], $staff['email'], $staff['hash'], $staff['role']]);
         }
     }
 } catch (Exception $e) {}
+

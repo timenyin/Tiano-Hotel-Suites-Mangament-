@@ -65,7 +65,8 @@ require_once __DIR__ . '/include/navbar.php';
                         For any inquiries regarding your privacy or reservation data, please contact management:
                     </p>
                     <p>
-                        <strong>Email:</strong> <?php echo htmlspecialchars(get_setting($pdo, 'hotel_email', 'webureabooking@weburea.com')); ?><br>
+                        <strong>Email:</strong> <?php echo htmlspecialchars(get_setting($pdo, 'hotel_email', 'support@tianohotelandsuites.com')); ?><br>
+
                         <strong>Phone:</strong> <?php echo htmlspecialchars(get_setting($pdo, 'hotel_phone', '+234 814 473 4612')); ?><br>
                         <strong>Address:</strong> <?php echo htmlspecialchars(get_setting($pdo, 'hotel_address', '44 Marina Road, Eket, Akwa Ibom State, Nigeria')); ?>
                     </p>

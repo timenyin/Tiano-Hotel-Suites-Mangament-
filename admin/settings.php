@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         'hotel_phone'             => trim($_POST['hotel_phone'] ?? '+234 814 473 4612'),
         'hotel_alt_phone'         => trim($_POST['hotel_alt_phone'] ?? ''),
         'hotel_whatsapp'          => trim($_POST['hotel_whatsapp'] ?? '2348144734612'),
-        'hotel_email'             => trim($_POST['hotel_email'] ?? 'webureabooking@weburea.com'),
+        'hotel_email'             => trim($_POST['hotel_email'] ?? 'support@tianohotelandsuites.com'),
+
         'hotel_address'           => trim($_POST['hotel_address'] ?? '44 Marina Road, Eket, Akwa Ibom State, Nigeria'),
         'checkin_time'            => trim($_POST['checkin_time'] ?? '1:00 PM'),
         'checkout_time'           => trim($_POST['checkout_time'] ?? '12:00 PM'),
@@ -128,7 +129,8 @@ foreach ($rawSettings as $rs) {
                     </div>
                     <div class="col-md-6">
                         <label class="form-label small fw-bold text-muted text-uppercase">Official Support Email</label>
-                        <input type="email" name="hotel_email" class="form-control" value="<?php echo htmlspecialchars($settings['hotel_email'] ?? 'webureabooking@weburea.com'); ?>" required>
+                        <input type="email" name="hotel_email" class="form-control" value="<?php echo htmlspecialchars($settings['hotel_email'] ?? 'support@tianohotelandsuites.com'); ?>" required>
+
                     </div>
                 </div>
             </div>

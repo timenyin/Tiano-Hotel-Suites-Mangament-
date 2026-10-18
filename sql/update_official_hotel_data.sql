@@ -79,7 +79,8 @@ INSERT INTO `rooms` (`id`, `category_id`, `room_number`, `floor_number`, `cleanl
 -- 4. Update Official Contact & Policy Settings in site_settings
 INSERT INTO `site_settings` (`setting_key`, `setting_value`, `category`, `description`) VALUES
 ('hotel_phone', '08144734612', 'contact', 'Official front desk phone number'),
-('hotel_email', 'tianohotel@gmail.com', 'contact', 'Official public and guest inquiries email'),
+('hotel_email', 'support@tianohotelandsuites.com', 'contact', 'Official public and guest inquiries email'),
+
 ('hotel_whatsapp', '2348144734612', 'contact', 'Official WhatsApp concierge direct number'),
 ('checkin_time', '1:00 PM', 'operations', 'Standard guest check-in start time'),
 ('checkout_time', '12:00 PM', 'operations', 'Standard guest check-out deadline'),

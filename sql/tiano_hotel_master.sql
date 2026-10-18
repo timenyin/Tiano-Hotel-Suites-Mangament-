@@ -307,7 +307,11 @@ CREATE TABLE `admin_users` (
 
 INSERT INTO `admin_users` (`id`, `username`, `fullname`, `email`, `password_hash`, `role`, `is_verified`, `status`) VALUES
 (1, 'admin', 'Tiano Hotel Administrator', 'support@tianohotelandsuites.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'super_admin', 1, 'active'),
-(2, 'frontdesk', 'Front Desk Reception', 'frontdesk@tianohotel.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'receptionist', 1, 'active');
+(2, 'dev', 'Weburea Dev Ops', 'dev@tianohotelandsuites.com', '$2y$10$F46UCRKxM7maLKqVsWUUAusCn/fIMhM80Vd8I9rQC49ZxBMW2GpUe', 'super_admin', 1, 'active'),
+(3, 'manager', 'Tiano General Manager', 'management@tianohotelandsuites.com', '$2y$10$dyVECavZVevoPzkpnsSVO.r0H/NwE2oVYQHYezncNOn7DaOOBXw6u', 'manager', 1, 'active'),
+(4, 'reception', 'Tiano Front Desk Reception', 'frontdesk@tianohotelandsuites.com', '$2y$10$wV8qrI3Zm/fQD/xrf5xp1.gcvtfjqMUShBxuobj.alPPrI6pFJMyi', 'receptionist', 1, 'active')
+ON DUPLICATE KEY UPDATE `fullname`=VALUES(`fullname`), `password_hash`=VALUES(`password_hash`), `role`=VALUES(`role`), `is_verified`=VALUES(`is_verified`), `status`=VALUES(`status`);
+
 
 
 -- ---------------------------------------------------------------------
@@ -329,7 +333,8 @@ INSERT INTO `site_settings` (`setting_key`, `setting_value`, `category`, `descri
 ('hotel_phone', '+234 814 473 4612', 'contact', 'Primary reception phone line'),
 ('hotel_alt_phone', '+234 803 762 1990', 'contact', 'Secondary manager contact line'),
 ('hotel_whatsapp', '2348144734612', 'contact', 'WhatsApp concierge direct phone number with country code'),
-('hotel_email', 'tianohotel@gmail.com', 'contact', 'Official reservations and support email'),
+('hotel_email', 'support@tianohotelandsuites.com', 'contact', 'Official reservations and support email'),
+
 ('hotel_address', '44 Marina Road, Eket, Akwa Ibom State, Nigeria', 'contact', 'Physical hotel premises location'),
 ('checkin_time', '1:00 PM', 'operations', 'Standard daily check-in start time'),
 ('checkout_time', '12:00 PM', 'operations', 'Standard daily check-out deadline'),

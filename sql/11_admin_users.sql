@@ -20,8 +20,12 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Initial Administrator Account (Default Credentials: admin / Admin@Tiano2026)
+-- Official Hotel Management & Staff Accounts
 INSERT INTO `admin_users` (`id`, `username`, `fullname`, `email`, `password_hash`, `role`, `is_verified`, `status`) VALUES
-(1, 'admin', 'Tiano Hotel Administrator', 'support@tianohotelandsuites.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'super_admin', 1, 'active')
-ON DUPLICATE KEY UPDATE `email`=VALUES(`email`), `password_hash`=VALUES(`password_hash`), `is_verified`=VALUES(`is_verified`);
+(1, 'admin', 'Tiano Hotel Administrator', 'support@tianohotelandsuites.com', '$2y$10$KYHjSGeEOvzKGoQ10bYAGOmpflZJnJEq8yB0MZTjeGpavjXgeY0IW', 'super_admin', 1, 'active'),
+(2, 'dev', 'Weburea Dev Ops', 'dev@tianohotelandsuites.com', '$2y$10$F46UCRKxM7maLKqVsWUUAusCn/fIMhM80Vd8I9rQC49ZxBMW2GpUe', 'super_admin', 1, 'active'),
+(3, 'manager', 'Tiano General Manager', 'management@tianohotelandsuites.com', '$2y$10$dyVECavZVevoPzkpnsSVO.r0H/NwE2oVYQHYezncNOn7DaOOBXw6u', 'manager', 1, 'active'),
+(4, 'reception', 'Tiano Front Desk Reception', 'frontdesk@tianohotelandsuites.com', '$2y$10$wV8qrI3Zm/fQD/xrf5xp1.gcvtfjqMUShBxuobj.alPPrI6pFJMyi', 'receptionist', 1, 'active')
+ON DUPLICATE KEY UPDATE `fullname`=VALUES(`fullname`), `password_hash`=VALUES(`password_hash`), `role`=VALUES(`role`), `is_verified`=VALUES(`is_verified`), `status`=VALUES(`status`);
+
 

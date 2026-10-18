@@ -26,14 +26,15 @@ if (file_exists($autoloader)) {
 }
 
 // ─── SMTP Server Configuration ─────────────────────────────────────────────
-if (!defined('TIANO_SMTP_HOST')) define('TIANO_SMTP_HOST', 'mail.weburea.com');
+if (!defined('TIANO_SMTP_HOST')) define('TIANO_SMTP_HOST', 's9621.fra1.stableserver.net');
 if (!defined('TIANO_SMTP_PORT')) define('TIANO_SMTP_PORT', 465); // Port 465 SMTPS (universal standard SSL)
 if (!defined('TIANO_SMTP_SECURE')) define('TIANO_SMTP_SECURE', PHPMailer::ENCRYPTION_SMTPS);
-if (!defined('TIANO_SMTP_USER')) define('TIANO_SMTP_USER', 'webureabooking@weburea.com');
-if (!defined('TIANO_SMTP_PASS')) define('TIANO_SMTP_PASS', 'Weburea_@');
-if (!defined('TIANO_SMTP_FROM_EMAIL')) define('TIANO_SMTP_FROM_EMAIL', 'webureabooking@weburea.com');
+if (!defined('TIANO_SMTP_USER')) define('TIANO_SMTP_USER', 'support@tianohotelandsuites.com');
+if (!defined('TIANO_SMTP_PASS')) define('TIANO_SMTP_PASS', 'Tiano2k_@');
+if (!defined('TIANO_SMTP_FROM_EMAIL')) define('TIANO_SMTP_FROM_EMAIL', 'support@tianohotelandsuites.com');
 if (!defined('TIANO_SMTP_FROM_NAME')) define('TIANO_SMTP_FROM_NAME', 'Tiano Hotel & Suites');
 if (!defined('TIANO_SMTP_DEBUG')) define('TIANO_SMTP_DEBUG', SMTP::DEBUG_OFF);
+
 
 
 /**
@@ -718,8 +719,9 @@ function sendAdminBookingAlertEmail(array $booking): array
     $subject = "New Reservation Alert: #" . $booking['booking_reference'] . " — " . $booking['guest_name'];
     $title   = "New Reservation Received";
     
-    // Resolve administrative recipient from site settings (defaults to webureabooking@weburea.com, never gmail)
-    $primaryAdminEmail = defined('TIANO_SMTP_USER') ? TIANO_SMTP_USER : 'webureabooking@weburea.com';
+    // Resolve administrative recipient from site settings (defaults to support@tianohotelandsuites.com, never gmail)
+    $primaryAdminEmail = defined('TIANO_SMTP_USER') ? TIANO_SMTP_USER : 'support@tianohotelandsuites.com';
+
     if (isset($pdo) && $pdo instanceof PDO) {
         try {
             $stmt = $pdo->query("SELECT setting_value FROM site_settings WHERE setting_key = 'hotel_email' LIMIT 1");
@@ -778,8 +780,9 @@ function sendDualBookingNotifications(array $booking): array
 {
     global $pdo;
 
-    // Resolve administrative recipient (defaults to webureabooking@weburea.com, never gmail)
-    $adminEmail = defined('TIANO_SMTP_USER') ? TIANO_SMTP_USER : 'webureabooking@weburea.com';
+    // Resolve administrative recipient (defaults to support@tianohotelandsuites.com, never gmail)
+    $adminEmail = defined('TIANO_SMTP_USER') ? TIANO_SMTP_USER : 'support@tianohotelandsuites.com';
+
     if (isset($pdo) && $pdo instanceof PDO) {
         try {
             $stmt = $pdo->query("SELECT setting_value FROM site_settings WHERE setting_key = 'hotel_email' LIMIT 1");
