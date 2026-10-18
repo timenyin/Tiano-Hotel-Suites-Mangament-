@@ -12,6 +12,10 @@ if (empty($clean_whatsapp)) {
     $clean_whatsapp = '2348144734612';
 }
 
+$caution_deposit_enabled = (get_setting($pdo, 'caution_deposit_enabled', '0') === '1');
+$caution_deposit_raw     = (float)get_setting($pdo, 'caution_deposit_default', 0.00);
+$caution_deposit_val     = ($caution_deposit_enabled && $caution_deposit_raw > 0) ? $caution_deposit_raw : 0.00;
+
 // Fetch room categories for dropdown
 $room_categories = get_room_categories($pdo);
 
@@ -256,7 +260,7 @@ $tomorrow = date('Y-m-d', strtotime('+1 day'));
                             <div>
                                 <strong class="d-block mb-1" style="color:#292323;">Pay on Arrival &mdash; Zero Online Prepayment</strong>
                                 <span class="text-muted">
-                                    No card details required. All payments (Nightly Rate + Refundable Caution Deposit)
+                                    No card details required. All payments (<?php echo ($caution_deposit_val > 0) ? 'Nightly Rate + Refundable Caution Deposit' : 'Nightly Accommodation Rate'; ?>)
                                     are settled physically at our front desk via <strong>cash, POS, or bank transfer</strong> upon arrival.
                                     A confirmed digital voucher with your booking reference will be issued instantly.
                                 </span>

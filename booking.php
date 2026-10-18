@@ -387,7 +387,7 @@ if (empty($initial_slides) && !empty($categories_json)) {
                             <div>
                                 <h5 class="fw-bold mb-1" style="color:#212529;">Pay on Arrival &mdash; Zero Online Prepayment</h5>
                                 <p class="text-muted mb-2 small" style="line-height:1.6;">
-                                    No credit card details required online. All payments (Nightly Accommodation + Refundable Caution Deposit) are settled physically at our reception upon arrival via cash, POS card terminal, or instant bank transfer.
+                                    No credit card details required online. All payments (<?php echo ($caution_deposit_val > 0) ? 'Nightly Accommodation + Refundable Caution Deposit' : 'Nightly Room Accommodation'; ?>) are settled physically at our reception upon arrival via cash, POS card terminal, or instant bank transfer.
                                 </p>
                                 <div class="d-flex flex-wrap gap-3 small text-secondary">
                                     <span><i class="bx bx-check-circle text-success me-1"></i> Instant Digital Voucher</span>
@@ -473,12 +473,14 @@ if (empty($initial_slides) && !empty($categories_json)) {
                                         <span class="text-muted">Room Rate (<span id="calcNightsLabel">1 night</span>):</span>
                                         <span class="fw-semibold" id="calcRoomTotal">&#x20A6;35,000</span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2" id="calcCautionRow" style="font-size:14px;<?php echo ($caution_deposit_val <= 0) ? 'display:none !important;' : ''; ?>">
+                                    <?php if ($caution_deposit_val > 0): ?>
+                                    <div class="d-flex justify-content-between align-items-center mb-2" id="calcCautionRow" style="font-size:14px;">
                                         <span class="text-muted" title="Reconciled or fully refunded upon checkout">
                                             Refundable Caution Deposit: <i class="bx bx-info-circle text-muted" style="font-size:13px;"></i>
                                         </span>
                                         <span class="fw-semibold" id="calcCautionDeposit">&#x20A6;<?php echo number_format($caution_deposit_val); ?></span>
                                     </div>
+                                    <?php endif; ?>
                                     <hr class="my-3">
                                     <div class="d-flex justify-content-between align-items-baseline">
                                         <div>
@@ -966,7 +968,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const cautionRow = document.getElementById('calcCautionRow');
         if (cautionRow) {
-            cautionRow.style.display = (cautionEnabled && cautionDeposit > 0) ? 'flex' : 'none';
+            cautionRow.style.setProperty('display', (cautionEnabled && cautionDeposit > 0) ? 'flex' : 'none', 'important');
         }
     }
 
