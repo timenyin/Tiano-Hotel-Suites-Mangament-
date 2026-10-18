@@ -1,0 +1,7 @@
+{
+    "name": "tiano-hotel/tiano-hotel",
+    "description": "Tiano Hotel & Suites Web Application & Management System",
+    "require": {
+        "phpmailer/phpmailer": "^7.1"
+    }
+}

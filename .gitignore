@@ -1,0 +1,4 @@
+.agents/
+.vscode/
+.idea/
+*.log

@@ -1258,23 +1258,25 @@ Main Banner Area
 
 .banner-area-three {
   width: 100%;
-  height: 85vh; /* Increase height to reveal more of the image */
-  
+  min-height: 85vh;
+  height: auto;
   background-image: 
-    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
     url(../img/hotel_build_fou.jpeg);
-
-  background-size: cover;        /* FULL WIDTH ALWAYS */
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center 15%; /* Shows more of the building */
+  background-position: center 25%;
+  display: flex;
+  align-items: center;
+  padding: 180px 0 90px;
 }
-
 
 .banner-max {
   max-width: 1080px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 300px 0 90px;
+  padding: 0;
 }
 
 .home_font_col {
@@ -2807,6 +2809,9 @@ Room Area
 }
 
 .room-card a img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
@@ -3029,6 +3034,9 @@ Room Area
 }
 
 .room-card-two .room-card-img a img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
   border-radius: 15px;
 }
 
@@ -6397,3 +6405,392 @@ PreLoader CSS End
   font-size: 14px;
   color: #dc3545;
 }
+
+/* ═════════════════════════════════════════════════════════
+   MODERN HERO BOOKING SEARCH BAR (MOCKUP STYLE)
+   ═════════════════════════════════════════════════════════ */
+.hero-search-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.hero-search-bar {
+  background: #ffffff;
+  border-radius: 60px;
+  padding: 8px 12px 8px 24px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  z-index: 20;
+}
+.hero-search-bar:focus-within {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32);
+}
+.hero-search-bar .nice-select {
+  display: none !important;
+}
+.search-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  padding: 4px 12px;
+  position: relative;
+}
+.search-divider {
+  width: 1px;
+  height: 40px;
+  background: #e2e8f0;
+  flex-shrink: 0;
+}
+.search-icon {
+  font-size: 26px;
+  color: #E73539;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.search-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+.search-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+/* ── Custom Luxury Dropdown ── */
+.custom-select-wrap {
+  position: relative;
+  width: 100%;
+}
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: start;
+}
+.custom-select-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.custom-select-arrow {
+  color: #94a3b8;
+  font-size: 18px;
+  transition: transform 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
+}
+.custom-select-wrap.open .custom-select-arrow {
+  transform: rotate(180deg);
+  color: #E73539;
+}
+.custom-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  min-width: 290px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 320px;
+  overflow-y: auto;
+}
+.custom-select-wrap.open .custom-dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  color: #1e293b;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.custom-dropdown-item:hover {
+  background: #f8fafc;
+  color: #E73539;
+}
+.custom-dropdown-item.active {
+  background: #fef2f2;
+  color: #E73539;
+  font-weight: 700;
+}
+.custom-dropdown-item .item-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #E73539;
+  margin-left: 12px;
+}
+
+/* ── Flatpickr Single Date Range Input (Mockup Style) ── */
+.hero-flatpickr-input,
+input.hero-flatpickr-input,
+input.hero-flatpickr-input:focus,
+input.hero-flatpickr-input:active,
+input.hero-flatpickr-input:hover {
+  width: 100%;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  padding: 2px 0;
+}
+.hero-flatpickr-input::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ── Custom Luxury Flatpickr Theme (Matching Mockup) ── */
+.flatpickr-calendar {
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.22) !important;
+  border: 1.5px solid #e2e8f0 !important;
+  padding: 14px 14px 20px 14px !important;
+  font-family: inherit !important;
+  width: 336px !important;
+  max-width: 95vw !important;
+  overflow: visible !important;
+  z-index: 999999 !important;
+}
+.flatpickr-calendar:before, .flatpickr-calendar:after {
+  display: none !important;
+}
+.flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days {
+  overflow: visible !important;
+  width: 100% !important;
+}
+.dayContainer {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  min-height: auto !important;
+  max-height: none !important;
+  height: auto !important;
+  padding-bottom: 8px !important;
+  overflow: visible !important;
+}
+.flatpickr-months {
+  margin-bottom: 6px !important;
+  align-items: center !important;
+}
+.flatpickr-months .flatpickr-month {
+  color: #0f172a !important;
+  fill: #0f172a !important;
+  height: 38px !important;
+}
+.flatpickr-current-month {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  padding-top: 4px !important;
+  color: #0f172a !important;
+}
+.flatpickr-current-month .cur-month {
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+.flatpickr-current-month input.cur-year {
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+.flatpickr-months .flatpickr-prev-month, 
+.flatpickr-months .flatpickr-next-month {
+  padding: 6px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  color: #64748b !important;
+  fill: #64748b !important;
+}
+.flatpickr-months .flatpickr-prev-month:hover, 
+.flatpickr-months .flatpickr-next-month:hover {
+  background: #f1f5f9 !important;
+  color: #E73539 !important;
+  fill: #E73539 !important;
+}
+span.flatpickr-weekday {
+  color: #64748b !important;
+  font-weight: 700 !important;
+  font-size: 11.5px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+.flatpickr-day {
+  border-radius: 50% !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #1e293b !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  transition: all 0.15s ease !important;
+}
+.flatpickr-day:hover {
+  background: #f1f5f9 !important;
+  border-color: #f1f5f9 !important;
+}
+.flatpickr-day.today {
+  border-color: #E73539 !important;
+  color: #E73539 !important;
+  font-weight: 700 !important;
+}
+.flatpickr-day.selected, 
+.flatpickr-day.startRange, 
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus {
+  background: #E73539 !important;
+  border-color: #E73539 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 10px rgba(231, 53, 57, 0.35) !important;
+}
+.flatpickr-day.inRange {
+  background: #fde8e8 !important;
+  border-color: #fde8e8 !important;
+  color: #b91c1c !important;
+  border-radius: 0 !important;
+  box-shadow: -5px 0 0 #fde8e8, 5px 0 0 #fde8e8 !important;
+}
+.flatpickr-day.startRange {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.flatpickr-day.endRange {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.flatpickr-day.selected.startRange.endRange {
+  border-radius: 50% !important;
+}
+.flatpickr-day.today.selected,
+.flatpickr-day.today.startRange,
+.flatpickr-day.today.endRange {
+  background: #E73539 !important;
+  color: #ffffff !important;
+}
+.flatpickr-day.flatpickr-disabled, 
+.flatpickr-day.flatpickr-disabled:hover {
+  color: #cbd5e1 !important;
+}
+.date-arrow-sep {
+  color: #94a3b8;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero-search-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #E73539;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(231, 53, 57, 0.4);
+  flex-shrink: 0;
+}
+.hero-search-btn:hover {
+  background: #c5292c;
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(231, 53, 57, 0.5);
+}
+
+@media (max-width: 991px) {
+  .hero-search-bar {
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 16px;
+  }
+  .search-divider {
+    width: 100%;
+    height: 1px;
+  }
+  .search-col {
+    width: 100%;
+    padding: 0;
+  }
+  .search-action-col {
+    width: 100%;
+  }
+  .hero-search-btn {
+    width: 100%;
+    border-radius: 12px;
+    height: 48px;
+    font-size: 16px;
+  }
+  .custom-dropdown-panel {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+/* ═════════════════════════════════════════════════════════
+   PRESIDENTIAL SUITE FEATURED FULL-WIDTH CARD
+   ═════════════════════════════════════════════════════════ */
+.presidential-featured-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.presidential-featured-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(231, 53, 57, 0.12) !important;
+}
+.presidential-featured-card:hover .room-card-img img {
+  transform: scale(1.03);
+}
+@media (max-width: 767px) {
+  .presidential-featured-card .room-card-img {
+    min-height: 240px !important;
+  }
+}
+

@@ -251,8 +251,8 @@
     // WOW JS
     new WOW().init();
 
-    // Nice Select JS
-    $('select').niceSelect();
+    // Nice Select JS (Exclude booking & hero search selects)
+    $('select').not('.no-nice-select, .search-select, .custom-input, select.form-select, #hero_room, #hero_guests, #adults, #children').niceSelect();
 
     // Back To Top Js
     $('body').append('<div id="toTop" class="top-btn"><i class="bx bx-chevrons-up"></i></div>');
@@ -290,16 +290,17 @@
     setInterval(function() { makeTimer(); }, 300);
 
     // Subscribe form
-    $(".newsletter-form").validator().on("submit", function (event) {
-        if (event.isDefaultPrevented()) {
-            // Handle The Invalid Form...
-            formErrorSub();
-            submitMSGSub(false, "Please enter your email correctly");
-        } else {
-            // Everything Looks Good!
-            event.preventDefault();
-        }
-    });
+    if ($.fn.validator) {
+        $(".newsletter-form").validator().on("submit", function (event) {
+            if (event.isDefaultPrevented()) {
+                formErrorSub();
+                submitMSGSub(false, "Please enter your email correctly");
+            } else {
+                event.preventDefault();
+            }
+        });
+    }
+
     function callbackFunction (resp) {
         if (resp.result === "success") {
             formSuccessSub();
@@ -331,14 +332,23 @@
     }
         
     // AJAX MailChimp
-    $(".newsletter-form").ajaxChimp({
-        url: "https://envyTheme.us20.list-manage.com/subscribe/post?u=60e1ffe2e8a68ce1204cd39a5&amp;id=42d6d188d9", // Your url MailChimp
-        callback: callbackFunction
-    });
+    if ($.fn.ajaxChimp) {
+        $(".newsletter-form").ajaxChimp({
+            url: "https://envyTheme.us20.list-manage.com/subscribe/post?u=60e1ffe2e8a68ce1204cd39a5&amp;id=42d6d188d9",
+            callback: callbackFunction
+        });
+    }
 
-    // Preloader JS
-    jQuery(window).on('load',function(){
-        jQuery(".preloader").fadeOut(500);
+    // Preloader JS with instant fail-safe
+    function removePreloader() {
+        var $preloader = jQuery(".preloader");
+        if ($preloader.length) {
+            $preloader.fadeOut(300);
+        }
+    }
+    jQuery(window).on('load', removePreloader);
+    jQuery(document).ready(function() {
+        setTimeout(removePreloader, 500);
     });
 
      
