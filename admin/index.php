@@ -159,10 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
         </form>
 
-        <!-- Default Credentials Callout for Convenience -->
-        <div class="p-2 mb-3 rounded-3 text-center" style="background:#f8fafc; border:1px dashed #cbd5e1; font-size:11.5px; color:#64748b;">
-            <span>Default Superadmin: <strong>support@tianohotelandsuites.com</strong> | Pass: <strong>Admin@Tiano2026</strong></span>
-        </div>
 
         <div class="text-center pt-2 border-top small text-muted">
             New team member? <a href="signup.php" class="text-danger fw-bold text-decoration-none">Register Staff Account</a>

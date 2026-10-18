@@ -322,4 +322,34 @@ Based on this comprehensive analysis, here are the top 5 high-impact improvement
    * Ensure meta titles and descriptions are distinct across all pages (e.g., removing leftover template titles such as `Atoli - Hotel & Resorts HTML Template` found in template files).
 
 ---
+
+## 9. Confidential Administrative Access & Credentials
+
+> [!CAUTION]
+> **STRICTLY CONFIDENTIAL — HOTEL MANAGEMENT EYES ONLY**  
+> Do not expose or share these credentials publicly. They are documented here solely for internal ownership handoff, executive oversight, and administrative onboarding.
+
+### Administrative Management Portal
+
+* **Live Admin Access URL:** [https://tianohotelandsuites.com/admin/index.php](https://tianohotelandsuites.com/admin/index.php)
+* **Local Development Access URL:** [http://localhost/Tiano-Hotel/admin/index.php](http://localhost/Tiano-Hotel/admin/index.php)
+
+### Staff Accounts & Default Credentials
+
+| Role | Username / Identifier | Official Staff Email | Default Password | Status | Access Scope |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Super Administrator** | `admin` | `support@tianohotelandsuites.com` | `Admin@Tiano2026` | Active (Verified) | Full Cockpit Access: Bookings, Rooms & Rates, Inventory, Services, Blog, Newsletter Broadcasts, Site Settings, Staff Activity Logs, and Security Configuration. |
+| **Front Desk Reception** | `frontdesk` | `frontdesk@tianohotel.com` | `Admin@Tiano2026` | Active (Verified) | Front-Desk Operations: Guest check-in/out, physical room assignment, cash/POS/transfer payment approval, and reservation voucher verification. |
+
+### Technical Server & Database Credentials Reference
+
+* **cPanel Host Account:** `tianohot` (Server: `s9621.hostingnigeria.com` / `65.181.113.31`)
+* **Live MySQL Database:** `tianohot_hotel_db`
+* **Live Database User:** `tianohot_hotel_user`
+* **Live Database Password:** `AWjI65%&gC*(p5xk`
+* **Local Database (XAMPP):** `tiano_hotel_db` | User: `root` | Password: *(empty)*
+* **Transactional Mail Relay:** `mail.weburea.com` | Port: `465` (SSL) | User: `webureabooking@weburea.com`
+
+---
 *End of Documentation — Tiano Hotel & Suites.*
+
