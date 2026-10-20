@@ -7,7 +7,7 @@ This document contains official portal URLs, staff access tiers, login credentia
 ## 1. Quick Access Portals
 
 * **Public Website**: [https://tianohotelandsuites.com](https://tianohotelandsuites.com)
-* **Staff & Admin Management Portal**: [https://tianohotelandsuites.com/admin/login.php](https://tianohotelandsuites.com/admin/login.php)
+* **Staff & Admin Management Portal**: [https://tianohotelandsuites.com/admin/](https://tianohotelandsuites.com/admin/) (or [https://tianohotelandsuites.com/admin/index.php](https://tianohotelandsuites.com/admin/index.php))
 * **Webmail Portal (cPanel)**: [https://tianohotelandsuites.com:2096](https://tianohotelandsuites.com:2096)
 
 ---
