@@ -27,6 +27,12 @@
     // Helper: Determine badge color class based on tag keyword
     function getTagClass(tag) {
         var lower = tag.toLowerCase();
+        if (lower.indexOf('booked') !== -1 || lower.indexOf('match') !== -1) {
+            return 'tiano-tag-match';
+        }
+        if (lower.indexOf('allocated') !== -1) {
+            return 'tiano-tag-allocated';
+        }
         if (lower.indexOf('clean') !== -1 || lower.indexOf('paid') !== -1 || lower.indexOf('active') !== -1 || lower.indexOf('ready') !== -1) {
             return 'tiano-tag-clean';
         }

@@ -259,8 +259,14 @@ $stmt->bindValue($bindIdx++, $offset, PDO::PARAM_INT);
 $stmt->execute();
 $bookings = $stmt->fetchAll();
 
-// Fetch all physical rooms for the dropdown
-$allRooms = $pdo->query("SELECT id, category_id, room_number, cleanliness_status, occupancy_status FROM rooms ORDER BY room_number ASC")->fetchAll();
+// Fetch all physical rooms with category name for the dropdown
+$allRooms = $pdo->query("
+    SELECT r.id, r.category_id, r.room_number, r.floor_number, r.cleanliness_status, r.occupancy_status,
+           rc.name AS category_name
+    FROM rooms r
+    LEFT JOIN room_categories rc ON r.category_id = rc.id
+    ORDER BY CAST(r.room_number AS UNSIGNED) ASC, r.room_number ASC
+")->fetchAll();
 ?>
 
 <!-- Alerts -->
@@ -640,20 +646,45 @@ $allRooms = $pdo->query("SELECT id, category_id, room_number, cleanliness_status
                                                         <option value="">-- No Room Assigned Yet --</option>
                                                         <?php 
                                                         $eligibleRoomsCount = 0;
-                                                        foreach ($allRooms as $rm): 
+                                                        
+                                                        // Sort rooms for this booking:
+                                                        // 1. Currently allocated room at top
+                                                        // 2. Clean & vacant rooms matching the booked category
+                                                        // 3. All other available clean & vacant rooms
+                                                        $bookingRooms = $allRooms;
+                                                        usort($bookingRooms, function ($a, $bItem) use ($b) {
+                                                            $aAssigned = (!empty($b['assigned_room_id']) && $b['assigned_room_id'] == $a['id']) ? 1 : 0;
+                                                            $bAssigned = (!empty($b['assigned_room_id']) && $b['assigned_room_id'] == $bItem['id']) ? 1 : 0;
+                                                            if ($aAssigned !== $bAssigned) return $bAssigned <=> $aAssigned;
+
+                                                            $aMatch = (!empty($b['category_id']) && $a['category_id'] == $b['category_id']) ? 1 : 0;
+                                                            $bMatch = (!empty($b['category_id']) && $bItem['category_id'] == $b['category_id']) ? 1 : 0;
+                                                            if ($aMatch !== $bMatch) return $bMatch <=> $aMatch;
+
+                                                            return ((int)$a['room_number']) <=> ((int)$bItem['room_number']);
+                                                        });
+
+                                                        foreach ($bookingRooms as $rm): 
                                                             $isAssignedToThis = (!empty($b['assigned_room_id']) && $b['assigned_room_id'] == $rm['id']);
                                                             $isClean = in_array(strtolower($rm['cleanliness_status']), ['clean', 'inspected']);
                                                             $isVacant = (strtolower($rm['occupancy_status']) === 'vacant');
+                                                            $isMatch = (!empty($b['category_id']) && $rm['category_id'] == $b['category_id']);
                                                             
                                                             // STRICT OPERATIONAL RULE: Exclude occupied, dirty, and maintenance rooms
                                                             if (($isClean && $isVacant) || $isAssignedToThis):
                                                                 $eligibleRoomsCount++;
-                                                                $labelSuffix = $isAssignedToThis 
-                                                                    ? '(Currently Allocated)' 
-                                                                    : '(' . ucfirst($rm['cleanliness_status']) . ', Vacant)';
+                                                                $catName = !empty($rm['category_name']) ? htmlspecialchars($rm['category_name']) : 'Standard';
+
+                                                                if ($isAssignedToThis) {
+                                                                    $labelSuffix = '(Currently Allocated)';
+                                                                } elseif ($isMatch) {
+                                                                    $labelSuffix = '(Booked Type, ' . ucfirst($rm['cleanliness_status']) . ', Vacant)';
+                                                                } else {
+                                                                    $labelSuffix = '(' . ucfirst($rm['cleanliness_status']) . ', Vacant)';
+                                                                }
                                                         ?>
                                                             <option value="<?php echo $rm['id']; ?>" <?php echo $isAssignedToThis ? 'selected' : ''; ?>>
-                                                                Room <?php echo htmlspecialchars($rm['room_number']); ?> <?php echo $labelSuffix; ?>
+                                                                Room <?php echo htmlspecialchars($rm['room_number']); ?> - <?php echo $catName; ?> <?php echo $labelSuffix; ?>
                                                             </option>
                                                         <?php 
                                                             endif;
