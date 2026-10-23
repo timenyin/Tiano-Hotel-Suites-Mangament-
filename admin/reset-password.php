@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user) {
             $newHash = password_hash($newPassword, PASSWORD_DEFAULT);
-            $update = $pdo->prepare("UPDATE admin_users SET password_hash = ?, reset_code = NULL, reset_token = NULL, reset_expires = NULL WHERE id = ?");
+            $update = $pdo->prepare("UPDATE admin_users SET password_hash = ?, is_verified = 1, status = 'active', reset_code = NULL, reset_token = NULL, reset_expires = NULL WHERE id = ?");
             $update->execute([$newHash, $user['id']]);
 
             header("Location: index.php?msg=" . urlencode("Password reset successfully! You can now sign in with your new password."));

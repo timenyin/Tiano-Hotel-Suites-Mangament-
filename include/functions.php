@@ -370,10 +370,19 @@ try {
         $existing = $stmtChk->fetch();
 
         if ($existing) {
-            // Update password hash if invalid, and ensure verified active status
-            if (!password_verify($staff['pwdCheck'], $existing['password_hash']) || (int)$existing['is_verified'] === 0 || $existing['status'] !== 'active' || $existing['role'] !== $staff['role']) {
+            // Keep user-customized passwords intact! Only repair if password_hash is empty or if unverified/inactive
+            $needsUpdate = false;
+            $newHash = $existing['password_hash'];
+            if (empty($existing['password_hash'])) {
+                $newHash = $staff['hash'];
+                $needsUpdate = true;
+            }
+            if ((int)$existing['is_verified'] === 0 || $existing['status'] !== 'active' || $existing['role'] !== $staff['role']) {
+                $needsUpdate = true;
+            }
+            if ($needsUpdate) {
                 $stmtUp = $pdo->prepare("UPDATE admin_users SET password_hash = ?, is_verified = 1, status = 'active', role = ? WHERE id = ?");
-                $stmtUp->execute([$staff['hash'], $staff['role'], $existing['id']]);
+                $stmtUp->execute([$newHash, $staff['role'], $existing['id']]);
             }
         } else {
             // Insert staff account if not yet present
