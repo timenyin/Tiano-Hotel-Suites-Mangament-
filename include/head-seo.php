@@ -13,9 +13,9 @@ $currentUri = $_SERVER['REQUEST_URI'] ?? '/Tiano-Hotel/';
 $localBaseUrl = $currentProtocol . $currentHost . '/Tiano-Hotel/';
 
 // Resolve canonical production URL from database settings if available
-$prodBaseUrl = 'https://www.tianohotel.com/';
+$prodBaseUrl = 'https://tianohotelandsuites.com/';
 if (isset($pdo)) {
-    $dbSiteUrl = get_setting($pdo, 'site_url', 'https://www.tianohotel.com');
+    $dbSiteUrl = get_setting($pdo, 'site_url', 'https://tianohotelandsuites.com');
     if (!empty($dbSiteUrl)) {
         $prodBaseUrl = rtrim($dbSiteUrl, '/') . '/';
     }
@@ -92,12 +92,12 @@ $page_og_type = isset($page_og_type) ? $page_og_type : 'website';
       "@type": "Hotel",
       "name": "Tiano Hotel and Suites",
       "description": "Premier boutique hotel and luxury suites in Eket, Akwa Ibom State, Nigeria.",
-      "url": "https://www.tianohotel.com",
+      "url": "https://tianohotelandsuites.com",
       "telephone": "+2348144734612",
       "priceRange": "₦35,000 - ₦250,000",
       "currenciesAccepted": "NGN",
       "openingHours": "Mo-Su 00:00-24:00",
-      "image": "https://www.tianohotel.com/assets/img/og-preview.jpg",
+      "image": "https://tianohotelandsuites.com/assets/img/og-preview.jpg",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "44 Marina Road",

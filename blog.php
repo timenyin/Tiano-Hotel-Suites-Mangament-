@@ -5,7 +5,7 @@
  */
 $page_title     = 'Hotel Blog & Travel Guides | Tiano Hotel & Suites, Eket';
 $page_desc      = 'Discover insider travel guides, hospitality updates, culinary stories, and luxury living in Eket, Akwa Ibom State from the Tiano Hotel editorial team.';
-$page_canonical = 'https://www.tianohotel.com/blog.php';
+$page_canonical = 'https://tianohotelandsuites.com/blog.php';
 $page_og_img    = 'assets/img/blog/blog-item-img1.jpg';
 $active_page    = 'blog';
 

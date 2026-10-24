@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         'checkout_time'           => trim($_POST['checkout_time'] ?? '12:00 PM'),
         'caution_deposit_enabled' => (isset($_POST['caution_deposit_enabled']) && $_POST['caution_deposit_enabled'] === '1') ? '1' : '0',
         'caution_deposit_default' => trim($_POST['caution_deposit_default'] ?? '0'),
-        'site_url'                => trim($_POST['site_url'] ?? 'https://www.tianohotel.com'),
+        'site_url'                => trim($_POST['site_url'] ?? 'https://tianohotelandsuites.com'),
         'facebook_url'            => trim($_POST['facebook_url'] ?? ''),
         'instagram_url'           => trim($_POST['instagram_url'] ?? ''),
         'alarm_sound_enabled'     => (isset($_POST['alarm_sound_enabled']) && $_POST['alarm_sound_enabled'] === '0') ? '0' : '1',
@@ -199,7 +199,7 @@ foreach ($rawSettings as $rs) {
 
                     <div class="col-12">
                         <label class="form-label small fw-bold text-muted text-uppercase">Canonical Production Site URL (For WhatsApp, Sitemap &amp; SEO previews)</label>
-                        <input type="url" name="site_url" class="form-control font-monospace" value="<?php echo htmlspecialchars($settings['site_url'] ?? 'https://www.tianohotel.com'); ?>">
+                        <input type="url" name="site_url" class="form-control font-monospace" value="<?php echo htmlspecialchars($settings['site_url'] ?? 'https://tianohotelandsuites.com'); ?>">
                     </div>
                 </div>
             </div>

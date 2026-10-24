@@ -9,7 +9,7 @@ require_once __DIR__ . '/include/helpers.php';
 
 header("Content-Type: application/xml; charset=utf-8");
 
-$siteUrl = rtrim(get_setting($pdo, 'site_url', 'https://www.tianohotel.com'), '/');
+$siteUrl = rtrim(get_setting($pdo, 'site_url', 'https://tianohotelandsuites.com'), '/');
 
 $pages = [
     ['loc' => '', 'priority' => '1.0', 'changefreq' => 'daily'],

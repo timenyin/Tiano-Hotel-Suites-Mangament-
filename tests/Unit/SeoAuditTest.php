@@ -29,7 +29,7 @@ class SeoAuditTest {
         
         $content = file_get_contents($path);
         assert(strpos($content, 'Disallow: /admin/') !== false, "robots.txt must disallow /admin/");
-        assert(strpos($content, 'Sitemap: https://www.tianohotel.com/sitemap.xml') !== false, "robots.txt must declare sitemap");
+        assert(strpos($content, 'Sitemap: https://tianohotelandsuites.com/sitemap.xml') !== false, "robots.txt must declare sitemap");
     }
 
     public function testAdminHtaccessSecurity(): void {

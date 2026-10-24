@@ -32,7 +32,7 @@ try {
 // SEO & Meta Configuration per .agents/rules/seo.md
 $page_title     = !empty($post['seo_title']) ? $post['seo_title'] : ($post['title'] . ' | Tiano Hotel & Suites');
 $page_desc      = !empty($post['seo_description']) ? $post['seo_description'] : ($post['excerpt'] ?: substr(strip_tags($post['content']), 0, 155));
-$page_canonical = 'https://www.tianohotel.com/blog-details.php?slug=' . urlencode($post['slug']);
+$page_canonical = 'https://tianohotelandsuites.com/blog-details.php?slug=' . urlencode($post['slug']);
 $page_og_img    = !empty($post['featured_image']) ? $post['featured_image'] : 'assets/img/blog/blog-item-img1.jpg';
 $page_og_type   = 'article';
 $active_page    = 'blog';
@@ -49,7 +49,7 @@ $schema_json = json_encode([
     ],
     "headline"         => $post['title'],
     "description"      => $page_desc,
-    "image"            => "https://www.tianohotel.com/" . ltrim($page_og_img, '/'),
+    "image"            => "https://tianohotelandsuites.com/" . ltrim($page_og_img, '/'),
     "author"           => [
         "@type" => "Person",
         "name"  => $post['author_name'] ?: "Tiano Editorial Desk"
@@ -59,7 +59,7 @@ $schema_json = json_encode([
         "name"  => "Tiano Hotel and Suites",
         "logo"  => [
             "@type" => "ImageObject",
-            "url"   => "https://www.tianohotel.com/assets/img/logos/logo-1.png"
+            "url"   => "https://tianohotelandsuites.com/assets/img/logos/logo-1.png"
         ]
     ],
     "datePublished"    => $publishedIso,
@@ -79,7 +79,7 @@ try {
     $relatedPosts = [];
 }
 
-$currentAbsoluteUrl = "https://www.tianohotel.com/blog-details.php?slug=" . urlencode($post['slug']);
+$currentAbsoluteUrl = "https://tianohotelandsuites.com/blog-details.php?slug=" . urlencode($post['slug']);
 $whatsappShareUrl   = "https://api.whatsapp.com/send?text=" . urlencode($post['title'] . " - Read more at: " . $currentAbsoluteUrl);
 $facebookShareUrl   = "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($currentAbsoluteUrl);
 $twitterShareUrl    = "https://twitter.com/intent/tweet?text=" . urlencode($post['title']) . "&url=" . urlencode($currentAbsoluteUrl);
